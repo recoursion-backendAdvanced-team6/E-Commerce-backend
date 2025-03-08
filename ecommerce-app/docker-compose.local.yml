@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    networks:
+      - app-network
+    depends_on:
+      - mysql 
+
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: ecommerce_app
+    env_file:
+      - .env.development
+    ports:
+    # ホストの3306を回避
+      - "3304:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      #開発環境用
+      - ./docker/my.cnf:/etc/my.cnf
+
+volumes:
+  db_data:
+
+networks:
+  app-network:
