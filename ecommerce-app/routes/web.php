@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Models\Product;
+
+Route::get('/', [HomeController::class, 'index'])->name('front.home');
+Route::get('/products', [ProductController::class, 'index'])->name('front.products');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
