@@ -18,15 +18,20 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/admin/dashbord', function() {
-    $menuItems = [
-        ['label' => '商品追加', 'url' => '/admin/dashbord/product/create'],
-        ['label' => '商品一覧', 'url' => '/admin/dashbord/product/list'],
-        ['label' => '注文一覧', 'url' => '/admin/dashbord/orders'],
-    ];
 
-    return view('admin.dashboard', ['menuItems' => $menuItems]);
+    return view('admin.dashboard');
 });
 
+Route::get('/admin/dashbord/product/create', function() {
+    return view();
+});
 
+Route::get('/admin/dashbord/product/list', function() {
+    return view();
+});
+
+Route::get('/admin/dashbord/product/orders', function() {
+    return view();
+});
 
 require __DIR__.'/auth.php';

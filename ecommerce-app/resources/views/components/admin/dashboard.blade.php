@@ -1,7 +1,4 @@
-<x-layouts.admin.dashboard>
-    <p>component dashboard</p>
-    <x-admin.sidebar/>
     <div>
-        {{ slot  }}
+    <x-sidebar/>
+    <p> side content </p>
     </div>
-</x-layouts.admin.dashboard>
