@@ -17,7 +17,7 @@
                         {{ $product->description }}
                     </p>
                     <p class="text-gray-600 text-sm line-clamp-2">
-                    カテゴリー{{ $product->category_id }}
+                        {{ $product->category ? $product->category->name : '' }}
                     </p>
                     <p class="text-gray-600 text-sm line-clamp-2">
                         {{ $product->price }}円
@@ -60,7 +60,7 @@
                         {{ $product->description }}
                     </p>
                     <p class="text-gray-600 text-sm line-clamp-2">
-                    カテゴリー{{ $product->category_id }}
+                        {{ $product->category ? $product->category->name : '' }}
                     </p>
                     <p class="text-gray-600 text-sm line-clamp-2">
                         {{ $product->price }}円

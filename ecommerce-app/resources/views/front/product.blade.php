@@ -31,7 +31,7 @@
 
                 <!-- カテゴリ & 価格 -->
                 <div class="text-sm text-gray-600 mb-2">
-                    カテゴリ: {{ $product->category_id }} / {{ $product->price }}円
+                    {{ $product->category ? $product->category->name : '' }} {{ $product->price }}円
                 </div>
 
                 <!-- 発売日など -->
