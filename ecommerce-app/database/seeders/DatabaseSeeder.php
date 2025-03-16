@@ -18,6 +18,12 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'country' => 'japan',
+            'zipcode' => 0000000,
+            'street_address' => 'testaddress',
+            'city' => 'tokyo',
+            'phone' => '0001111222',
+            'password' => '1234'
         ]);
     }
 }
