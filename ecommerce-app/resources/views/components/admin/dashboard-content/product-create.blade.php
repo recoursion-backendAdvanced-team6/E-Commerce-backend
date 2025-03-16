@@ -1,1 +1,1 @@
-<p>products-create</p>
+<p>admin/dashboard/product/create</p>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -22,42 +23,8 @@ Route::middleware('auth')->group(function () {
 });
 
 
-/**
- * prefixでadminを固定
- * 
- */
 Route::prefix('admin')->name('admin.')->group(function() {
-
-    Route::get('dashboard', function () {
-        $page = 'dashboard';
-        // ダミーデータ
-        $data = ['test'=> 'これはダミーです'];
-
-        return view('admin.dashboard', compact('page', 'data'));
-    })->name('dashboard');
-
-    Route::prefix('dashboard')->group(function() {
-        Route::get('products', function () {
-            $page = 'products';
-            // ダミーデータ
-            $data = ['test'=> 'これはダミーです'];
-            return view('admin.dashboard', compact('page', 'data'));
-        })->name('dashboard.products');
-
-        Route::get('orders', function () {
-            $page = 'orders';
-            // ダミーデータ
-            $data = ['test'=> 'これはダミーです'];
-            return view('admin.dashboard', compact('page', 'data'));
-        })->name('dashboard.orders');
-
-        Route::get('product/create', function () {
-            $page = 'product/create';
-            // ダミーデータ
-            $data = ['test'=> 'これはダミーです'];
-            return view('admin.dashboard', compact('page', 'data'));
-        })->name('dashboard.product.create');
-    });
+    Route::get('dashboard/{page?}/{subpage?}', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 

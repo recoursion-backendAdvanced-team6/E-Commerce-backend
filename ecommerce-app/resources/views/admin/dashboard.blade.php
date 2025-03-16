@@ -3,6 +3,6 @@
     <aside>
     <x-sidebar/>
     </aside>
-    <x-admin.dashboard-content.content :page="$page" :data="$data"/>
+    <x-admin.dashboard-content.content :path="$path" :data="$data"/>
 </x-layouts.admin.dashboard>
 

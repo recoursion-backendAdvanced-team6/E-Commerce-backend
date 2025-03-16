@@ -1,6 +1,6 @@
-@props (['page', 'data'])
+@props (['path', 'data'])
 
-@switch($page)
+@switch($path)
     @case('dashboard')
     <p> {{$data['test'] ? $data['test'] : 'データがありません' }} </p>
         @break
@@ -18,5 +18,5 @@
         @break
 
     @default
-    <p>ページが見つかりません</p>
+    <p>bladeページが見つかりません</p>
 @endswitch
