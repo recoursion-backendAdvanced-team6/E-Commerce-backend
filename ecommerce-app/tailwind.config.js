@@ -14,6 +14,15 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: { // ここを "colors" に変更
+                brand: {
+                    50:  '#F4EEFF', // 一番明るい
+                    100: '#DCD6F7',
+                    200: '#A6B1E1',
+                    900: '#424874', 
+                    999: '#222831'// 一番濃い
+                },
+            }
         },
     },
 

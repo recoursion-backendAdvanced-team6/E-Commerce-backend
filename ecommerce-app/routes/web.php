@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Models\Product;
+
+Route::get('/', [HomeController::class, 'index'])->name('front.home');
+Route::get('/products', [ProductController::class, 'index'])->name('front.products');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -17,9 +20,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/admin/dashbord', function() {
-
-    return view('admin.dashboard');
+Route::prefix('admin')->name('admin.')->group(function() {
+    Route::get('/dashbord/{page?}', function ($page='products') {
+        return view('admin.dashboard', compact('page'));
+    })->name('dashboard');
 });
 
 Route::get('/admin/dashbord/product/create', function() {
