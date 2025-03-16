@@ -15,12 +15,19 @@ class Sidebar extends Component
 
     public function __construct()
     {
-        // adminとuserに対応
+        /**
+         * 管理者とユーザーの管理画面のサイドバーに使用できる予定ですが
+         * 今の段階では管理者のみの実装になっています
+         * 
+         * 必要な機能:
+         * 管理者とユーザーを区別して、設定するデータを変更する
+        */ 
         
+        // 管理者
         $this->menuItems =  [
-            ['label' => '商品追加', 'url' => '/admin/dashbord/product/create'],
-            ['label' => '商品一覧', 'url' => '/admin/dashbord/product/list'],
-            ['label' => '注文一覧', 'url' => '/admin/dashbord/orders'],
+            ['label' => '商品追加', 'url' => '/admin/dashboard/product/create'],
+            ['label' => '商品一覧', 'url' => '/admin/dashboard/products'],
+            ['label' => '注文一覧', 'url' => '/admin/dashboard/orders']
         ];
     }
 

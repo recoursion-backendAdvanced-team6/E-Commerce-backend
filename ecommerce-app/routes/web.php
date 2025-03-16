@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\Product;
 
@@ -20,22 +21,44 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+/**
+ * prefixでadminを固定
+ * 
+ */
 Route::prefix('admin')->name('admin.')->group(function() {
-    Route::get('/dashbord/{page?}', function ($page='products') {
-        return view('admin.dashboard', compact('page'));
+
+    Route::get('dashboard', function () {
+        $page = 'dashboard';
+        // ダミーデータ
+        $data = ['test'=> 'これはダミーです'];
+
+        return view('admin.dashboard', compact('page', 'data'));
     })->name('dashboard');
+
+    Route::prefix('dashboard')->group(function() {
+        Route::get('products', function () {
+            $page = 'products';
+            // ダミーデータ
+            $data = ['test'=> 'これはダミーです'];
+            return view('admin.dashboard', compact('page', 'data'));
+        })->name('dashboard.products');
+
+        Route::get('orders', function () {
+            $page = 'orders';
+            // ダミーデータ
+            $data = ['test'=> 'これはダミーです'];
+            return view('admin.dashboard', compact('page', 'data'));
+        })->name('dashboard.orders');
+
+        Route::get('product/create', function () {
+            $page = 'product/create';
+            // ダミーデータ
+            $data = ['test'=> 'これはダミーです'];
+            return view('admin.dashboard', compact('page', 'data'));
+        })->name('dashboard.product.create');
+    });
 });
 
-Route::get('/admin/dashbord/product/create', function() {
-    return view();
-});
-
-Route::get('/admin/dashbord/product/list', function() {
-    return view();
-});
-
-Route::get('/admin/dashbord/product/orders', function() {
-    return view();
-});
 
 require __DIR__.'/auth.php';

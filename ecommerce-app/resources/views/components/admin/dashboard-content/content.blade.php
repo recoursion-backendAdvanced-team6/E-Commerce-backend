@@ -1,14 +1,22 @@
-@props (['page', 'data']);
+@props (['page', 'data'])
 
-<p>admin/dashboard-content.cotent</p>
-@if ($page == '')
-    <p> home </p>
+@switch($page)
+    @case('dashboard')
+    <p> {{$data['test'] ? $data['test'] : 'データがありません' }} </p>
+        @break
 
-@elseif($page == 'product/create')
-    <x-admin.dashboard-content.product-create :data="data"/>
+    @case('product/create')
+        <x-admin.dashboard-content.product-create :data="$data"/>
+        @break
 
-@elseif($page == 'products')
-    <x-admin.dashboard-content.products :data="data"/>
+    @case('products')
+        <x-admin.dashboard-content.products :data="$data"/>
+        @break
 
-@elseif($page == 'orders')
-    <x-admin.dashboard-content.orders :data="data"/>
+    @case('orders')
+        <x-admin.dashboard-content.orders :data="$data"/>
+        @break
+
+    @default
+    <p>ページが見つかりません</p>
+@endswitch
