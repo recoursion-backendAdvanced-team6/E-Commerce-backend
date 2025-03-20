@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="hover:text-brand-200 transition-colors">
+                <a href="{{ route('cart.index') }}" class="hover:text-brand-200 transition-colors">
                     カート
                 </a>
             </li>
