@@ -41,7 +41,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        // $product は単一のモデルインスタンス
+        return view('front.product.show', compact('product'));
     }
 
     /**
