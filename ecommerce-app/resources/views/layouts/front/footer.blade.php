@@ -21,8 +21,8 @@
             <div>
                 <h3 class="font-bold mb-3">ログイン / 会員登録</h3>
                 <ul class="space-y-1">
-                    <li><a href="#" class="hover:text-brand-200">Log in</a></li>
-                    <li><a href="#" class="hover:text-brand-200">会員登録</a></li>
+                    <li><a href="{{ route('login') }}" class="hover:text-brand-200">ログイン</a></li>
+                    <li><a href="{{ route('register') }}" class="hover:text-brand-200">会員登録</a></li>
                     <li><a href="#" class="hover:text-brand-200">ほしいものを見る</a></li>
                 </ul>
             </div>
@@ -31,7 +31,7 @@
             <div>
                 <h3 class="font-bold mb-3">カートを見る</h3>
                 <ul class="space-y-1">
-                    <li><a href="#" class="hover:text-brand-200">Cart</a></li>
+                    <li><a href="{{ route('cart.index')}}" class="hover:text-brand-200">カート</a></li>
                 </ul>
             </div>
 
