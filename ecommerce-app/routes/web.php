@@ -24,7 +24,10 @@ Route::middleware('auth')->group(function () {
 
 
 Route::prefix('admin')->name('admin.')->group(function() {
-    Route::get('dashboard/{page?}/{subpage?}', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'home'])->name('dashboard');
+    Route::get('dashboard/products', [DashboardController::class, 'products'])->name('dashboard.products');
+    Route::get('dashboard/orders', [DashboardController::class, 'orders'])->name('dashboard.orders');
+    Route::get('dashboard/{page?}/{subpage?}', [DashboardController::class, 'home'])->name('dashboard.page.subpage');
 });
 
 

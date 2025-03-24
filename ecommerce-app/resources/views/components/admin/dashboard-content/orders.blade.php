@@ -1,1 +1,0 @@
-<p>admin/dashboard/orders</p>
