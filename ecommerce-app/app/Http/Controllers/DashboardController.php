@@ -2,22 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Product;
+use Illuminate\Support\Facades\Request;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    public function index($page='dashboard', $subpage='') {
-        $path = $subpage ? "{$page}/{$subpage}" : $page;
+    /**
+     * ダッシュボードページを表示
+     * 
+     * @return View
+     */
+    public function home(): View {
+        return view('admin.dashboard-content.dashboard');
+    }
 
-        // バリデーションを行い、該当しないパスを404にリダイレクトする
-        $validPagesToAdmin = ['dashboard', 'products', 'product/create', 'orders'];
+    /**
+     * 商品一覧を取得し、表示
+     * 
+     * @return View
+     */
+    public function products(): View{
+        $products = Product::whereNull('deleted_at')->get();
 
-        if(!in_array($path, $validPagesToAdmin)){
-            abort(404, 'ページが見つかりません');
-        }
+        return view('admin.dashboard-content.products', compact('products'));
+    }
 
-        // ダミーデータ
-        $data = ['test' => 'これはダミーです'];
-        return view('admin.dashboard', compact('path', 'data'));
+    /**
+     * 注文一覧を取得し、表示
+     * 
+     * @return View
+     */
+    public function orders(): View {
+        return view('admin.dashboard-content.orders');
     }
 }

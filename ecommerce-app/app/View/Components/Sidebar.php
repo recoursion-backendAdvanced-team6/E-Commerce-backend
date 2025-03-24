@@ -23,15 +23,13 @@ class Sidebar extends Component
          * 必要な処理:
          * 管理者とユーザーを区別して、設定するデータを変更する
          * 
-         * 課題:
-         * DBのテーブルの設計上、管理者とユーザーの区別がつけないかもしれない
         */ 
         
         // 管理者
         $this->menuItems =  [
             ['label' => '商品追加', 'url' => '/admin/dashboard/product/create'],
-            ['label' => '商品一覧', 'url' => '/admin/dashboard/products'],
-            ['label' => '注文一覧', 'url' => '/admin/dashboard/orders']
+            ['label' => '商品一覧', 'url' => route('admin.dashboard.products')],
+            ['label' => '注文一覧', 'url' => route('admin.dashboard.orders')],
         ];
     }
 
