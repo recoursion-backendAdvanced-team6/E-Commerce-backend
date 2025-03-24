@@ -5,6 +5,7 @@
         <a 
             class="ml-auto border-2 border-indigo-400 rounded-sm p-2" 
             href='https://dashboard.stripe.com/' 
+            target='_blank'
             >
             商品を追加
         </a>
