@@ -67,10 +67,10 @@
 
         <!-- 購入ボタン -->
         <div class="text-right">
-            <button
-                class="rounded-2xl bg-brand-100 text-brand-900 px-6 py-2 font-semibold border border-brand-200 hover:bg-brand-200 hover:text-white transition">
+            <a href="{{ route('checkout.shipping') }}"
+            class="rounded-2xl bg-brand-100 text-brand-900 px-6 py-2 font-semibold border border-brand-200 hover:bg-brand-200 hover:text-white transition">
                 購入する
-            </button>
+            </a>
         </div>
     @else
         <p>カートは空です。</p>
