@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Stripe\Webhook;
 use App\Models\Product;
+use PhpParser\Node\Stmt\Break_;
+use Illuminate\Support\Str;
 
 Route::get('/', [HomeController::class, 'index'])->name('front.home');
 Route::get('/products', [ProductController::class, 'index'])->name('front.products');
@@ -61,25 +63,30 @@ Route::post('/webhook/stripe', function(Request $request) {
     }
     Cache::put('webhook_stripe_' . $data->id, true, 60);
 
-    // priceをtype: price.createdから取得
-    $price = 0;
-    if($event->type === 'price.created') {
-        $price = $data->unit_amount;
-    };
 
 
     switch ($event->type) {
+        // priceをtype: price.createdから取得
+        case  'price.created':
+            Product::updateOrCreate(
+                ['stripe_product_id' => $data->product],
+                [
+                    'price' => $data->unit_amount,
+                ],
+            );
+            break;
+
         // 作成されたproductをDBに登録
         case 'product.created':
             Product::updateOrCreate(
-                ['stripe_product_id' => $data->id],
+                ['stripe_product_id' => $data->id ?? 0],
                 [
                     'image_url' => $data->images[0] ?? null,
                     'title' => $data->name,
                     'description' => $data->description,
                     'published_date' => null,
-                    'price' => $price,
                     'status' => 'draft',
+                    'price'=> 0,
                     'inventory' => 0,
                     'is_digital' => false,
                 ],
