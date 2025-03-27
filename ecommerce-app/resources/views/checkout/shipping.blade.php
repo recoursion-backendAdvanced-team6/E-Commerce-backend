@@ -1,6 +1,11 @@
 <x-front-layout>
     <x-slot:title>配送先情報入力</x-slot:title>
 
+    <!-- パンくずリスト -->
+    <nav class="text-sm text-gray-500 mb-4">
+        <a href="{{ route('cart.index')}}">カート</a> > 配送先情報
+    </nav>
+
     <h1 class="text-2xl font-bold mb-4">配送先情報</h1>
 
     <!-- カート情報の表示 -->
@@ -13,7 +18,7 @@
                         <th class="text-left p-2">商品画像</th>
                         <th class="text-left p-2">商品名</th>
                         <th class="text-right p-2">数量</th>
-                        <th class="text-right p-2">価格</th>
+                        <th class="text-right p-2">価格(税込)</th>
                         <th class="text-right p-2">小計</th>
                     </tr>
                 </thead>
@@ -59,13 +64,13 @@
                     登録済みの住所を使う
                 </label>
                 <div id="existing-address-section" class="ml-6 mb-4 bg-white p-3 border rounded">
-                    <p>お名前: {{ $user->name }}</p>
-                    <p>メール: {{ $user->email }}</p>
-                    <p>国: {{ $user->country }}</p>
-                    <p>郵便番号: {{ $user->zipcode }}</p>
-                    <p>住所: {{ $user->street_address }}</p>
-                    <p>市区町村: {{ $user->city }}</p>
-                    <p>電話番号: {{ $user->phone }}</p>
+                    <p><span class="font-semibold">お名前:</span> {{ $user->name }}</p>
+                    <p><span class="font-semibold">メール:</span> {{  $user->email }}</p>
+                    <p><span class="font-semibold">国:</span> {{ $user->country }}</p>
+                    <p><span class="font-semibold">郵便番号:</span> {{ $user->zipcode }}</p>
+                    <p><span class="font-semibold">住所:</span> {{ $user->street_address }}</p>
+                    <p><span class="font-semibold">市区町村:</span> {{ $user->city }}</p>
+                    <p><span class="font-semibold">電話番号:</span> {{ $user->phone }}</p>
                 </div>
 
                 <label class="flex items-center mb-2">
@@ -76,42 +81,136 @@
         @endif
 
         <!-- 新しい住所入力フォーム（ゲストまたは会員が新規入力を選択した場合） -->
-        <div id="new-address-section" class="mb-4 bg-gray-50 p-4 rounded"
-             style="@if($user) display: none; @endif">
-            <h2 class="text-lg font-semibold mb-2">新しい住所を入力</h2>
+        <!-- 新しい住所の入力フォーム（ゲスト or 新規入力を選択した場合） -->
+        <div 
+                id="new-address-section" 
+                class="bg-[#f9f9f7] p-4 rounded-xl border border-gray-200 shadow-sm"
+                style="@if($user) display: none; @endif"
+            >
+            @if(!$user)
+                <div class="mb-6 bg-gradient-to-r from-pink-100 to-purple-100 p-6 rounded-xl border border-pink-200 shadow-lg text-center">
+                    <h2 class="text-lg font-bold mb-2 text-purple-700">会員登録しませんか？</h2>
+                    <p class="text-purple-600 mb-4">
+                        会員登録すると、購入履歴の確認やお得な情報が届く便利な機能が使えます！
+                    </p>
+                    <a href="{{ route('register') }}" class="inline-block bg-purple-500 text-white px-5 py-2 rounded-full hover:bg-purple-600 transition">
+                        📚 会員登録する
+                    </a>
+                </div>
+            @endif
+
+            @if(!Auth::check())
+                <div class="flex gap-4 mt-4 justify-center flex-wrap">
+                    <a href="{{ route('login') }}" class="inline-block bg-purple-400 text-white px-5 py-2 rounded-full hover:bg-purple-600 transition">
+                        😊 会員登録済みの方はこちらからログイン 🔑
+                    </a>
+                </div>
+            @endif
+
+            <h2 class="text-lg font-semibold mb-2 text-gray-700">配送先の住所を入力</h2>
+
             <div class="mb-4">
-                <label class="block mb-1">お名前</label>
-                <input type="text" name="name" value="{{ old('name') }}" class="border p-2 w-full">
+                <label class="block mb-1 font-medium text-gray-700">お名前</label>
+                <input 
+                    type="text" 
+                    name="name"
+                    value="{{ old('name', session('shipping.name')) }}" 
+                    class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+                >
+                @error('name')
+                    <p class="text-red-600 text-sm mt-1">{{ 'お名前は必須です' }}</p>
+                @enderror
+            </div>
+            @if(!Auth::check())
+                <div class="mb-4">
+                    <label class="block mb-1 font-medium text-gray-700">メールアドレス</label>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        value="{{ old('email', session('shipping.email')) }}" 
+                        class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+                    >
+                    @error('email')
+                        <p class="text-red-600 text-sm mt-1">{{ 'メールアドレスは必須です' }}</p>
+                    @enderror
+                </div>
+            @endif
+            <div class="mb-4">
+                <label class="block mb-1 font-medium text-gray-700">国</label>
+                <input 
+                    type="text" 
+                    name="country" 
+                    value="{{ old('country', session('shipping.country')) }}" 
+                    class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+                >
+                @error('country')
+                    <p class="text-red-600 text-sm mt-1">{{ '国の名前は必須です' }}</p>
+                @enderror
             </div>
             <div class="mb-4">
-                <label class="block mb-1">メールアドレス</label>
-                <input type="email" name="email" value="{{ old('email') }}" class="border p-2 w-full">
+                <label class="block mb-1 font-medium text-gray-700">郵便番号</label>
+                <input 
+                    type="text" 
+                    name="zipcode" 
+                    value="{{ old('zipcode', session('shipping.zipcode')) }}" 
+                    class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+                >
+                @error('zipcode')
+                    <p class="text-red-600 text-sm mt-1">{{ '郵便番号は必須です' }}</p>
+                @enderror
             </div>
             <div class="mb-4">
-                <label class="block mb-1">国</label>
-                <input type="text" name="country" value="{{ old('country') }}" class="border p-2 w-full">
+                <label class="block mb-1 font-medium text-gray-700">都道府県</label>
+                <textarea 
+                    name="street_address" 
+                    class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+                >{{ old('street_address', session('shipping.street_address')) }}</textarea>
+                @error('street_address')
+                    <p class="text-red-600 text-sm mt-1">{{ '都道府県は必須です' }}</p>
+                @enderror
             </div>
             <div class="mb-4">
-                <label class="block mb-1">郵便番号</label>
-                <input type="text" name="zipcode" value="{{ old('zipcode') }}" class="border p-2 w-full">
+                <label class="block mb-1 font-medium text-gray-700">市区町村以降の住所</label>
+                <input 
+                    type="text" 
+                    name="city" 
+                    value="{{ old('city', session('shipping.city')) }}" 
+                    class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+                >
+                @error('city')
+                    <p class="text-red-600 text-sm mt-1">{{ "市区町村以降の住所は必須です" }}</p>
+                @enderror
             </div>
-            <div class="mb-4">
-                <label class="block mb-1">住所</label>
-                <textarea name="street_address" class="border p-2 w-full">{{ old('street_address') }}</textarea>
-            </div>
-            <div class="mb-4">
-                <label class="block mb-1">市区町村</label>
-                <input type="text" name="city" value="{{ old('city') }}" class="border p-2 w-full">
-            </div>
-            <div class="mb-4">
-                <label class="block mb-1">電話番号</label>
-                <input type="text" name="phone" value="{{ old('phone') }}" class="border p-2 w-full">
-            </div>
+            @if(!Auth::check())
+                <div class="mb-4">
+                    <label class="block mb-1 font-medium text-gray-700">電話番号</label>
+                    <input 
+                        type="text" 
+                        name="phone" 
+                        value="{{ old('phone', session('shipping.phone')) }}" 
+                        class="border border-gray-300 p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+                    >
+                    @error('phone')
+                        <p class="text-red-600 text-sm mt-1">{{ '電話番号は必須です' }}</p>
+                    @enderror
+                </div>
+            @endif
         </div>
 
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
-            次へ進む
-        </button>
+        <div class="flex justify-between items-center mt-6">
+            <a 
+                href="{{ route('cart.index') }}" 
+                class="inline-block text-blue-600 hover:underline"
+            >
+                ← カートに戻る
+            </a>
+            <button 
+                type="submit" 
+                class="rounded-2xl bg-brand-100 text-brand-900 px-6 py-2 font-semibold border border-brand-200 hover:bg-brand-200 hover:text-white transition"
+            >
+                確認ページへ進む
+            </button>
+        </div>
     </form>
 
     <x-slot:js>
