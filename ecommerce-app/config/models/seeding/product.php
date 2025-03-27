@@ -4,6 +4,7 @@ $defaultList = [];
 for ($i = 1; $i <= 20; $i++) {
     $defaultList[] = [
         'stripe_product_id' => "prod_prog_$i",
+        'author_id'         => rand(1, 5), // 1〜5のランダムな数字を設定
         'image_url'         => "https://picsum.photos/seed/' . $i . '/480/640",
         'title'             => "Programming Book $i",
         'description'       => "This is a sample description for Programming Book $i. It covers various programming topics, frameworks, and best practices.",
