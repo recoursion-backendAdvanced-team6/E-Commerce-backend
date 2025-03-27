@@ -1,1 +1,0 @@
-<p>admin/dashboard-content/products</p>
