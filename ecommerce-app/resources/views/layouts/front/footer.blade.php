@@ -1,4 +1,4 @@
-<footer class="bg-brand-100 px-6 py-10 text-sm text-brand-999 rounded-3xl mx-4">
+<footer class="bg-brand-50 px-6 py-10 text-sm text-brand-999 rounded-3xl m-4">
     <div class="container mx-auto">
         <!-- フッターメイン部分: グリッドで複数カラム -->
         <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
@@ -56,8 +56,8 @@
             </div>
 
             <!-- 下部リンク -->
-            <div class="flex items-center space-x-6 mb-4 md:mb-0">
-                <a href="#" class="hover:text-brand-200">page TOP</a>
+            <div class="flex items-center space-x-6 mb-4 md:mb-0 text-lg">
+                <a href="#" class="hover:text-brand-200">🔝</a>
             </div>
 
             <!-- コピーライト -->
@@ -67,4 +67,3 @@
         </div>
     </div>
 </footer>
-s
