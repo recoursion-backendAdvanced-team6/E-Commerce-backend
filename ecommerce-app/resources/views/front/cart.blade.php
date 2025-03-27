@@ -15,7 +15,7 @@
                 <thead>
                     <tr class="border-b">
                         <th class="text-left p-3">商品名</th>
-                        <th class="text-left p-3">価格</th>
+                        <th class="text-left p-3">価格(税込)</th>
                         <th class="text-center p-3">数量</th>
                         <th class="text-right p-3">小計</th>
                         <th class="p-3">操作</th>
