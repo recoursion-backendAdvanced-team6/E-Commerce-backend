@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Support\Facades\Request;
 use Illuminate\View\View;
@@ -34,6 +35,7 @@ class DashboardController extends Controller
      * @return View
      */
     public function orders(): View {
-        return view('admin.dashboard-content.orders');
+        $orders = Order::where('status', 'completed')->get();
+        return view('admin.dashboard-content.orders', compact('orders'));
     }
 }
