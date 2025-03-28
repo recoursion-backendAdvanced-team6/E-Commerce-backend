@@ -4,25 +4,27 @@
         <h2 class="text-2xl font-bold text-pink-600 mb-4">新刊</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             @foreach ($newReleases as $product)
-                <div class="bg-white rounded-2xl shadow p-4 hover:shadow-md transition">
-                    <img 
-                        src="{{ $product->image_url ?? '/images/no-image.png' }}" 
-                        alt="{{ $product->title }}" 
-                        class="w-full h-auto mb-3 rounded-2xl"
-                    />
-                    <h3 class="text-lg font-semibold text-pink-600 mb-1">
-                        {{ $product->title }}
-                    </h3>
-                    <p class="text-gray-600 text-sm line-clamp-2">
-                        {{ $product->description }}
-                    </p>
-                    <p class="text-gray-600 text-sm line-clamp-2">
-                        {{ $product->category ? $product->category->name : '' }}
-                    </p>
-                    <p class="text-gray-600 text-sm line-clamp-2">
-                        {{ $product->price }}円
-                    </p>
-                </div>
+                <a href="{{ route('front.product.show', $product->id) }}">
+                    <div class="bg-white rounded-2xl shadow p-4 hover:shadow-md transition">
+                        <img 
+                            src="{{ $product->image_url ?? '/images/no-image.png' }}" 
+                            alt="{{ $product->title }}" 
+                            class="w-full h-auto mb-3 rounded-2xl"
+                        />
+                        <h3 class="text-lg font-semibold text-pink-600 mb-1">
+                            {{ $product->title }}
+                        </h3>
+                        <p class="text-gray-600 text-sm line-clamp-2">
+                            {{ $product->description }}
+                        </p>
+                        <p class="text-gray-600 text-sm line-clamp-2">
+                            {{ $product->category ? $product->category->name : '' }}
+                        </p>
+                        <p class="text-gray-600 text-sm line-clamp-2">
+                            {{ $product->price }}円
+                        </p>
+                    </div>
+                </a>
             @endforeach
         </div>
         <!-- 「もっと見る」ボタン -->
@@ -47,25 +49,27 @@
         <h2 class="text-2xl font-bold text-blue-600 mb-4">人気</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             @foreach ($popular as $product)
-                <div class="bg-white rounded-2xl shadow p-4 hover:shadow-md transition">
-                    <img 
-                        src="{{ $product->image_url ?? '/images/no-image.png' }}" 
-                        alt="{{ $product->title }}" 
-                        class="w-full h-auto mb-3 rounded-2xl"
-                    />
-                    <h3 class="text-lg font-semibold text-pink-600 mb-1">
-                        {{ $product->title }}
-                    </h3>
-                    <p class="text-gray-600 text-sm line-clamp-2">
-                        {{ $product->description }}
-                    </p>
-                    <p class="text-gray-600 text-sm line-clamp-2">
-                        {{ $product->category ? $product->category->name : '' }}
-                    </p>
-                    <p class="text-gray-600 text-sm line-clamp-2">
-                        {{ $product->price }}円
-                    </p>
-                </div>
+                <a href="{{ route('front.product.show', $product->id) }}">
+                    <div class="bg-white rounded-2xl shadow p-4 hover:shadow-md transition">
+                        <img 
+                            src="{{ $product->image_url ?? '/images/no-image.png' }}" 
+                            alt="{{ $product->title }}" 
+                            class="w-full h-auto mb-3 rounded-2xl"
+                        />
+                        <h3 class="text-lg font-semibold text-pink-600 mb-1">
+                            {{ $product->title }}
+                        </h3>
+                        <p class="text-gray-600 text-sm line-clamp-2">
+                            {{ $product->description }}
+                        </p>
+                        <p class="text-gray-600 text-sm line-clamp-2">
+                            {{ $product->category ? $product->category->name : '' }}
+                        </p>
+                        <p class="text-gray-600 text-sm line-clamp-2">
+                            {{ $product->price }}円
+                        </p>
+                    </div>
+                </a>
             @endforeach
         </div>
     </section>

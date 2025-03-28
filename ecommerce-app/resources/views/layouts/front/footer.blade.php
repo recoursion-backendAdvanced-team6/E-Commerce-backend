@@ -1,4 +1,4 @@
-<footer class="bg-brand-100 px-6 py-10 text-sm text-brand-999 rounded-3xl mx-4">
+<footer class="bg-brand-50 px-6 py-10 text-sm text-brand-999 rounded-3xl m-4">
     <div class="container mx-auto">
         <!-- フッターメイン部分: グリッドで複数カラム -->
         <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
@@ -21,8 +21,8 @@
             <div>
                 <h3 class="font-bold mb-3">ログイン / 会員登録</h3>
                 <ul class="space-y-1">
-                    <li><a href="#" class="hover:text-brand-200">Log in</a></li>
-                    <li><a href="#" class="hover:text-brand-200">会員登録</a></li>
+                    <li><a href="{{ route('login') }}" class="hover:text-brand-200">ログイン</a></li>
+                    <li><a href="{{ route('register') }}" class="hover:text-brand-200">会員登録</a></li>
                     <li><a href="#" class="hover:text-brand-200">ほしいものを見る</a></li>
                 </ul>
             </div>
@@ -31,7 +31,7 @@
             <div>
                 <h3 class="font-bold mb-3">カートを見る</h3>
                 <ul class="space-y-1">
-                    <li><a href="#" class="hover:text-brand-200">Cart</a></li>
+                    <li><a href="{{ route('cart.index')}}" class="hover:text-brand-200">カート</a></li>
                 </ul>
             </div>
 
@@ -56,8 +56,8 @@
             </div>
 
             <!-- 下部リンク -->
-            <div class="flex items-center space-x-6 mb-4 md:mb-0">
-                <a href="#" class="hover:text-brand-200">page TOP</a>
+            <div class="flex items-center space-x-6 mb-4 md:mb-0 text-lg">
+                <a href="#" class="hover:text-brand-200">🔝</a>
             </div>
 
             <!-- コピーライト -->
@@ -67,4 +67,3 @@
         </div>
     </div>
 </footer>
-s

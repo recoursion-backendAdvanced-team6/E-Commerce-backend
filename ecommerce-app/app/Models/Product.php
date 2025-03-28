@@ -39,4 +39,12 @@ class Product extends Model
         // belongsToMany では、中間テーブル product_tags を利用し、Product と Tag の関係を管理します。
         return $this->belongsToMany(Tag::class)->withTimestamps();
     }
+
+    // 税込価格を計算して返すアクセサ
+    public function getTaxedPriceAttribute()
+    {
+        $taxRate = config('tax.rate');
+        return $this->price * (1 + $taxRate);
+    }
+    
 }
