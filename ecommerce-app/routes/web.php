@@ -66,42 +66,74 @@ Route::post('/webhook/stripe', function(Request $request) {
 
 
     switch ($event->type) {
+
         // priceをtype: price.createdから取得
         case  'price.created':
-            Product::updateOrCreate(
-                ['stripe_product_id' => $data->product],
-                [
-                    'price' => $data->unit_amount,
-                ],
-            );
+            $product = Product::where('stripe_product_id', $data->product)->first();
+            if(!$product){
+                Product::updateOrCreate(
+                    ['stripe_product_id' => $data->product],
+                    [
+                        'stripe_price_id' => $data->id,
+                        'price' => $data->unit_amount,
+                        'image_url' => null,
+                        'title' => '',
+                        'description' => '',
+                        'published_date' => null,
+                        'status' => 'draft',
+                        'inventory' => 0,
+                        'is_digital' => false,
+                    ],
+                );
+            }else {
+                Product::updateOrCreate(
+                    ['stripe_product_id' => $data->product],
+                    [
+                        'stripe_price_id' => $data->id,
+                        'price' => $data->unit_amount,
+                    ],
+                );
+            }
             break;
 
         // 作成されたproductをDBに登録
         case 'product.created':
-            Product::updateOrCreate(
-                ['stripe_product_id' => $data->id ?? 0],
-                [
-                    'image_url' => $data->images[0] ?? null,
-                    'title' => $data->name,
-                    'description' => $data->description,
-                    'published_date' => null,
-                    'status' => 'draft',
-                    'price'=> 0,
-                    'inventory' => 0,
-                    'is_digital' => false,
-                ],
-            );
+            $product = Product::where('stripe_product_id', $data->id)->first();
+            if(!$product){
+                Product::updateOrCreate(
+                    ['stripe_product_id' => $data->id],
+                    [
+                        'image_url' => $data->images[0] ?? null,
+                        'title' => $data->name,
+                        'description' => $data->description,
+                        'published_date' => null,
+                        'status' => 'draft',
+                        'price' => 0,
+                        'inventory' => 0,
+                        'is_digital' => false,
+                    ],
+                );
+
+            }else {
+                Product::updateOrCreate(
+                    ['stripe_product_id' => $data->id],
+                    [
+                        'image_url' => $data->images[0] ?? null,
+                        'title' => $data->name,
+                        'description' => $data->description,
+                    ],
+                );
+            }
             break;
         
         
         case 'product.deleted':
             $stripeProductId = $data->id;
-
             $product = Product::where('stripe_product_id', $stripeProductId)->first();
-
             if($product){
                 $product->delete();
             }
+
             break;
     }
 
