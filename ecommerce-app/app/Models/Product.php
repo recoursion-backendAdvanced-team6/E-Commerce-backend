@@ -14,6 +14,7 @@ class Product extends Model
     protected $fillable = [
         // 必要に応じて、stripe_product_id を含めるか検討
         'stripe_product_id',
+        'stripe_price_id',
         'image_url',
         'title',
         'description',

@@ -11,7 +11,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // CSRFを無功にしたいルートの設定
+        $middleware->validateCsrfTokens(except: [
+            'stripe/webhook',
+            'stripe/webhook/*',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
