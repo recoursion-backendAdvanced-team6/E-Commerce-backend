@@ -22,4 +22,9 @@ class Order extends Model
         'shipping_city',
         'shipping_phone',
     ];
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }

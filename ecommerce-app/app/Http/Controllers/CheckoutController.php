@@ -174,7 +174,7 @@ class CheckoutController extends Controller
         $amount = (int)$total; // 日本円の場合、1円＝1単位
         // Checkout セッションのオプションを設定（通貨は.envのCASHIER_CURRENCY=JPYで自動設定）
         $options = [
-            'success_url' => route('order.complete'),
+            'success_url' => route('order.complete') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url'  => route('checkout.payment'),
         ];
 
@@ -192,92 +192,4 @@ class CheckoutController extends Controller
 
         return redirect($checkoutSession->url);
     }
-    
-//     public function processPayment(Request $request)
-//     {
-//         // Retrieve shipping info and cart from session
-//         $shipping = $request->session()->get('shipping');
-//         $sessionCart = $request->session()->get('cart', []);
-        
-//         // Build the Stripe prices mapping array
-//         $priceMap = [];
-//         $orderItems = [];
-        
-//         foreach ($sessionCart as $productId => $quantity) {
-//             $product = Product::find($productId);
-//             if ($product) {
-//                 // Here, assume $product->stripe_price_id holds the pre-created Stripe Price ID.
-//                 // If you use stripe_product_id, replace accordingly.
-//                 $priceMap[$product->stripe_price_id] = $quantity;
-                
-//                 // Also prepare order items for your local DB
-//                 $orderItems[] = [
-//                     'product_id' => $product->id,
-//                     'quantity'   => $quantity,
-//                     'price'      => $product->taxed_price,
-//                     'created_at' => now(),
-//                     'updated_at' => now(),
-//                 ];
-//             }
-//         }
-        
-//         // If user is not logged in, create a guest user
-//         $user = $request->user();
-//         if (!$user) {
-//             $user = User::create([
-//                 'name'           => $shipping['name'],
-//                 'email'          => $shipping['email'],
-//                 'country'        => $shipping['country'],
-//                 'zipcode'        => $shipping['zipcode'],
-//                 'street_address' => $shipping['street_address'],
-//                 'city'           => $shipping['city'],
-//                 'phone'          => $shipping['phone'],
-//                 'password'       => bcrypt(\Illuminate\Support\Str::random(16)),
-//             ]);
-//         }
-        
-//         // Create the order record with a dummy session id (to be updated via webhook or later)
-//         $order = Order::create([
-//             'user_id'                     => $user->id,
-//             'stripe_checkout_session_id'  => 'dummy_session_id',
-//             'total_amount'                => 0, // You can recalc total if needed
-//             'status'                      => 'pending',
-//             'shipping_name'               => $shipping['name'],
-//             'shipping_email'              => $shipping['email'],
-//             'shipping_country'            => $shipping['country'],
-//             'shipping_zipcode'            => $shipping['zipcode'],
-//             'shipping_street_address'     => $shipping['street_address'],
-//             'shipping_city'               => $shipping['city'],
-//             'shipping_phone'              => $shipping['phone'],
-//         ]);
-        
-//         // Insert order items into the order_items table
-//         foreach ($orderItems as $item) {
-//             $item['order_id'] = $order->id;
-//             \DB::table('order_items')->insert($item);
-//         }
-        
-//         // Prepare options for the checkout session
-//         $options = [
-//             'success_url' => (string) route('order.complete'),
-//             'cancel_url'  => (string) route('checkout.payment'),
-//         ];
-        
-//         // Create the Stripe Checkout session using the checkout() method.
-//         // This method uses the pre-created Stripe Price IDs from the $priceMap.
-//         $checkoutResponse = $user->checkout($priceMap, $options);
-        
-//         // Update the order record with the Stripe Checkout Session ID (can also be updated via webhook)
-//         $order->update([
-//             'stripe_checkout_session_id' => $checkoutResponse->id,
-//         ]);
-        
-//         // Clear the session cart and shipping data
-//         $request->session()->forget('cart');
-//         $request->session()->forget('shipping');
-        
-//         // Redirect the user to the Stripe Checkout URL
-//         return redirect($checkoutResponse->url);
-//     }
-
 }

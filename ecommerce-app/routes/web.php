@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\StripeWebhookController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Http\Controllers\WebhookController as CashierWebhookController;
 use Illuminate\Http\Request;
@@ -54,9 +55,22 @@ Route::post('/stripe/webhook', [CashierWebhookController::class, 'handleWebhook'
 Route::post('/stripe/webhook/product/create', [StripeWebhookController::class, 'handleWebhook'])->name('webhook.product.create');
 
 // 注文完了ページ
-Route::get('/order/complete', function () {
-    return view('checkout.complete');
-})->name('order.complete');
+Route::get('/order/complete', [OrderController::class, 'complete'])->name('order.complete');
+
+// メール送信
+Route::get('/mail', function () {
+    // テスト用に、存在する注文を取得（データがない場合は適切に作成してください）
+    $order = Order::first();
+
+    if (!$order) {
+        return '注文が見つかりません。';
+    }
+
+    // テスト送信。受信可能なメールアドレスに変更してください。
+    Mail::to('your_email@example.com')->send(new OrderConfirmationMail($order));
+
+    return 'テストメールを送信しました。';
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
