@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\OrderItem;
 
 class Order extends Model
 {
@@ -22,4 +23,8 @@ class Order extends Model
         'shipping_city',
         'shipping_phone',
     ];
+
+    public function items(){
+        return $this->hasMany(OrderItem::class);
+    }
 }

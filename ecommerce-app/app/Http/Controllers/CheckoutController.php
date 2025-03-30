@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
 {
@@ -168,7 +169,7 @@ class CheckoutController extends Controller
 
         foreach ($orderItems as $item) {
             $item['order_id'] = $order->id;
-            \DB::table('order_items')->insert($item);
+            DB::table('order_items')->insert($item);
         }
 
         $amount = (int)$total; // 日本円の場合、1円＝1単位
