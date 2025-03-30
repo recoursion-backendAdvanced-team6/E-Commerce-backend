@@ -13,7 +13,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::query()
+        $products = Product::with('author')
+            ->where('status', 'published')
+            ->where('inventory', '>=', 1)
             ->orderByDesc('created_at')
             ->paginate(10);
 

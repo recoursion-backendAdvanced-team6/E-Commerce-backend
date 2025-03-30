@@ -38,6 +38,11 @@
                     {{ $product->description }}
                 </p>
 
+                <!-- 作者 -->
+                <div class="text-sm text-gray-600 mb-2">
+                    {{ $product->author?->name ?? '' }}
+                </div>
+
                 <!-- カテゴリ & 価格 -->
                 <div class="text-sm text-gray-600 mb-2">
                     {{ $product->category ? $product->category->name : '' }} {{ $product->price }}円
@@ -58,10 +63,16 @@
                             カートに入れる
                         </button>
                     </form>
-                    <!-- ほしいものボタン -->
+                    <!-- お気に入りボタン -->
                     <button
                         class="rounded-2xl bg-blue-300 text-white px-4 py-2 font-semibold hover:bg-blue-400 transition">
-                        ほしいもの
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                     fill="none" viewBox="0 0 24 24"
+                     stroke-width="1.5" stroke="currentColor"
+                     class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M21.435 4.353a5.847 5.847 0 00-8.29-.128l-.145.143-.145-.143a5.847 5.847 0 00-8.29.128 5.838 5.838 0 000 8.267l8.29 8.29 8.29-8.29a5.838 5.838 0 000-8.267v0z" />
+                        </svg>
                     </button>
                 </div>
             </div>

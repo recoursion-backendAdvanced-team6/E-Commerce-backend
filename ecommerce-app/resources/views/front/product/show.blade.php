@@ -26,6 +26,12 @@
                 <h1 class="text-2xl font-bold mt-2">{{ $product->title }}</h1>
             </div>
 
+            <!-- 著者名 -->
+            <ul class="text-sm text-gray-600">
+                <li> {{ $product->author?->name ?? '' }}
+                </li>
+            </ul>
+
             <!-- 価格 -->
             <div class="text-xl text-brand-900">
                 {{ number_format($product->taxed_price) }}円 <span class="text-sm text-gray-500">(税込)</span>
@@ -35,7 +41,6 @@
             <ul class="text-sm text-gray-600 space-y-1">
                 <li>発売日：{{ \Carbon\Carbon::parse($product->published_date)->format('Y-m-d') }}
                 </li>
-                <li>ISBN/ JAN：978-0000000000</li>
                 <!-- 必要に応じて追加 -->
             </ul>
 
@@ -59,7 +64,7 @@
                 </button>
             </form>
 
-            <!-- ほしいものリストボタン (例) -->
+            <!--  お気に入りボタン -->
             <button
                 class="rounded-2xl bg-white text-brand-900 px-6 py-2 font-semibold border border-brand-200 hover:bg-brand-50 transition flex items-center space-x-2"
             >
@@ -70,7 +75,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round"
                         d="M21.435 4.353a5.847 5.847 0 00-8.29-.128l-.145.143-.145-.143a5.847 5.847 0 00-8.29.128 5.838 5.838 0 000 8.267l8.29 8.29 8.29-8.29a5.838 5.838 0 000-8.267v0z" />
                 </svg>
-                <span>ほしいものに追加</span>
+                <span>お気に入りに追加</span>
             </button>
         </div>
     </div>

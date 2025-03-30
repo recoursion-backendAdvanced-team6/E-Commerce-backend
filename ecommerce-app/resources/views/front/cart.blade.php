@@ -14,7 +14,7 @@
             <table class="w-full mb-6 border-collapse">
                 <thead>
                     <tr class="border-b">
-                        <th class="text-left p-3">商品名</th>
+                        <th class="text-left p-3">商品</th>
                         <th class="text-left p-3">価格(税込)</th>
                         <th class="text-center p-3">数量</th>
                         <th class="text-right p-3">小計</th>
@@ -31,6 +31,7 @@
                                         class="w-12 h-auto rounded">
                                     <div>
                                         <div class="font-semibold">{{ $product->title }}</div>
+                                        <div class="text-xs text-gray-500">{{ $product->author?->name ?? '' }}</div>
                                         <div class="text-xs text-gray-500">カテゴリ: {{ $product->category->name ?? '未分類' }}</div>
                                     </div>
                                 </a>

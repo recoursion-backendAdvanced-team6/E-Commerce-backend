@@ -14,14 +14,17 @@
                         <h3 class="text-lg font-semibold text-pink-600 mb-1">
                             {{ $product->title }}
                         </h3>
-                        <p class="text-gray-600 text-sm line-clamp-2">
+                        <p class="text-gray-600 text-sm line-clamp-2 mb-1">
                             {{ $product->description }}
                         </p>
                         <p class="text-gray-600 text-sm line-clamp-2">
+                            {{ $product->author?->name ?? '' }}
+                        </p>
+                        <p class="text-gray-600 text-sm line-clamp-2  mb-1">
                             {{ $product->category ? $product->category->name : '' }}
                         </p>
                         <p class="text-gray-600 text-sm line-clamp-2">
-                            {{ $product->price }}円
+                            {{ number_format($product->taxed_price) }}円（税込）
                         </p>
                     </div>
                 </a>
@@ -59,14 +62,17 @@
                         <h3 class="text-lg font-semibold text-pink-600 mb-1">
                             {{ $product->title }}
                         </h3>
-                        <p class="text-gray-600 text-sm line-clamp-2">
+                        <p class="text-gray-600 text-sm line-clamp-2 mb-1">
                             {{ $product->description }}
                         </p>
                         <p class="text-gray-600 text-sm line-clamp-2">
+                            {{ $product->author?->name ?? '' }}
+                        </p>
+                        <p class="text-gray-600 text-sm line-clamp-2 mb-1">
                             {{ $product->category ? $product->category->name : '' }}
                         </p>
                         <p class="text-gray-600 text-sm line-clamp-2">
-                            {{ $product->price }}円
+                            {{ number_format($product->taxed_price) }}円（税込）
                         </p>
                     </div>
                 </a>
