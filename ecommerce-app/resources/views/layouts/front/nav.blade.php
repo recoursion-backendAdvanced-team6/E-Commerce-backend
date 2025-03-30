@@ -29,7 +29,7 @@
             @if (Route::has('login'))
                 @auth
                     <li>
-                        <a href="#" class="hover:text-brand-200 transition-colors">
+                        <a href="{{ route('dashboard') }}" class="hover:text-brand-200 transition-colors">
                             マイページ
                         </a>
                     </li>
