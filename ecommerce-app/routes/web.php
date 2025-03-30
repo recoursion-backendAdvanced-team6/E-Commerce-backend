@@ -18,13 +18,19 @@ use App\Models\Product;
 use PhpParser\Node\Stmt\Break_;
 use Illuminate\Support\Str;
 
+// サイトトップ
 Route::get('/', [HomeController::class, 'index'])->name('front.home');
-# Stripe用リダイレクトルート
+
+// Stripe用リダイレクトルート
 Route::get('/home', function () {
     return redirect()->route('front.home');
 })->name('home');
 
+// 商品一覧
 Route::get('/products', [ProductController::class, 'index'])->name('front.products');
+// カテゴリ別商品一覧
+Route::get('/products/category/{category}', [ProductController::class, 'category'])->name('front.product.category');
+// 商品詳細
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('front.product.show');
 
 // カート関連

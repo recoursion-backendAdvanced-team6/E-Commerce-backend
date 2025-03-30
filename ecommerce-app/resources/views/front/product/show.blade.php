@@ -3,7 +3,16 @@
 
     <!-- パンくずリスト -->
     <nav class="text-sm text-gray-500 mb-4">
-        <a href="{{ route('front.home')}}">ホーム</a> > <a href="{{ route('front.products')}}">商品一覧</a> > {{ $product->title }}
+        <a href="{{ route('front.home') }}">ホーム</a>
+        >
+        <a href="{{ route('front.products') }}">商品一覧</a>
+        @if ($product->category)
+            >
+            <a href="{{ route('front.product.category', ['category' => $product->category->id]) }}">
+                {{ $product->category->name }}
+            </a>
+        @endif
+        > {{ $product->title }}
     </nav>
 
     <div class="md:flex md:space-x-8">

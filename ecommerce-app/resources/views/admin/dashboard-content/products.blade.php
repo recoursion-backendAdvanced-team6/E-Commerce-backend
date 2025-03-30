@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class='flex flex-col grid-span-end gap-y-5 justify-end'>
-                    <p class='text-base'> 販売価格: {{ $product->price  }}  円</p>
+                    <p class='text-base'> 販売価格: {{ number_format($product->taxed_price) }}円（税込）</p>
                 </div>
             </div>
         @endforeach

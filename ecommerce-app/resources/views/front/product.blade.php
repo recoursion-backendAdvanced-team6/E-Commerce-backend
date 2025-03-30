@@ -1,16 +1,31 @@
 <x-front-layout>
-    <x-slot:title>新刊・話題書</x-slot:title>
+    <x-slot:title>
+        @isset($category)
+            {{ $category->name }}
+        @else
+            新刊・話題書
+        @endisset
+    </x-slot:title>
 
     <!-- パンくずリスト -->
     <nav class="text-sm text-gray-500 mb-4">
-        <a href="{{ route('front.home')}}">ホーム</a> > 商品一覧
+        <a href="{{ route('front.home') }}">ホーム</a>
+        @isset($category)
+            > <a href="{{ route('front.products') }}">商品一覧</a> > {{ $category->name }}
+        @else
+            > 商品一覧
+        @endisset
     </nav>
 
-    <h1 class="text-4xl font-bold mb-4 brand-999">新刊・話題書</h1>
+    <h1 class="text-4xl font-bold mb-4 brand-999">
+        @isset($category)
+            {{ $category->name }}
+        @else
+            新刊・話題書
+        @endisset
+    </h1>
     <p class="text-lg mb-6 text-gray-700">
-        いま話題の新刊プログラミング書をチェック！<br>
-        最新の言語仕様やフレームワークの実践ガイド、独学者向けの入門書まで、注目度の高い書籍をピックアップ。<br>
-        トレンドを追いかけながら、スキルを身につけていきましょう。
+        最新のプログラミング書籍から、定評ある実践ガイド、初心者向けの入門書まで、幅広いラインナップをご用意しております。各書籍は、業界の動向を踏まえた内容や実用的な知識を網羅しており、読者の多様なニーズにお応えします。ぜひ、お気に入りの一冊を見つけてください。
     </p>
 
     <!-- 商品グリッド -->
@@ -45,7 +60,7 @@
 
                 <!-- カテゴリ & 価格 -->
                 <div class="text-sm text-gray-600 mb-2">
-                    {{ $product->category ? $product->category->name : '' }} {{ $product->price }}円
+                    {{ $product->category ? $product->category->name : '' }} {{ number_format($product->taxed_price) }}円（税込）
                 </div>
 
                 <!-- 発売日など -->
