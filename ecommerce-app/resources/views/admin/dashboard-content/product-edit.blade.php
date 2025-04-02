@@ -46,18 +46,22 @@
 
             <div class="grid grid-cols-1 grid-rows-2 md:grid-cols-3 items-center gap-2 ">
                 <label for="inventory" class="text-base">公開</label>
-                        <label class="inline-flex items-center gap-2 row-start-2">
-                            <input type="radio" name="status" value="draft"
-                                {{ old('status', $product->status) === 'draft' ? 'checked' : '' }}>
-                            <span>下書き</span>
-                        </label>
-                        <label class="inline-flex items-center gap-2 row-start-2">
-                            <input type="radio" name="status" value="public"
-                                {{ old('status', $product->status) === 'published' ? 'checked' : '' }}>
-                            <span>公開</span>
-                        </label>
+                <label class="inline-flex items-center gap-2 row-start-2">
+                    <input type="radio" name="status" value="draft"
+                        {{ old('status', $product->status) === 'draft' ? 'checked' : '' }}>
+                    <span>下書き</span>
+                </label>
+                <label class="inline-flex items-center gap-2 row-start-2">
+                    <input type="radio" name="status" value="public"
+                        {{ old('status', $product->status) === 'published' ? 'checked' : '' }}>
+                    <span>公開</span>
+                </label>
             </div>
+        </div>
 
+        <div class="mt-6 flex items-center justify-end gap-x-6">
+            <button type="button" class="text-sm/6 font-semibold rounded-md p-2 text-gray-900 hover:bg-gray-200">キャンセル</button>
+            <button type="submit" class="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">編集</button>
         </div>
 
         <!-- 他の項目も同様に -->
