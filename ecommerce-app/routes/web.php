@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -67,8 +68,9 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::get('dashboard', [DashboardController::class, 'home'])->name('dashboard');
     Route::get('dashboard/products', [DashboardController::class, 'products'])->name('dashboard.products');
     Route::get('dashboard/orders', [DashboardController::class, 'orders'])->name('dashboard.orders');
-    Route::get('dashboard/{page?}/{subpage?}', [DashboardController::class, 'home'])->name('dashboard.page.subpage');
+    Route::resource('products', AdminProductController::class);
 });
+
 
 /*
 Route::post('/webhook/stripe', function(Request $request) {

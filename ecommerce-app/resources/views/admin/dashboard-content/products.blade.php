@@ -37,6 +37,12 @@
                 <div class='flex flex-col grid-span-end gap-y-5 justify-end'>
                     <p class='text-base'> 販売価格: {{ $product->price  }}  円</p>
                 </div>
+                <div class='flex flex-col grid-span-end gap-y-5 justify-end'>
+                    <a href='{{route('admin.products.edit', $product->id)}}' class='text-base'> 更新 </a>
+                </div>
+                <div class='flex flex-col grid-span-end gap-y-5 justify-end'>
+                    <a href='{{route('admin.products.destroy', $product->id)}}' class='text-base'> 削除</a>
+                </div>
             </div>
         @endforeach
         </div>
