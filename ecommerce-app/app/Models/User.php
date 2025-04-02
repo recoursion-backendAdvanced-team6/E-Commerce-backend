@@ -43,4 +43,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // orders リレーションの定義
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(Product::class, 'favorites', 'user_id', 'product_id');
+    }
 }

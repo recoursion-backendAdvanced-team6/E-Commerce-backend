@@ -4,7 +4,7 @@
         <a href="{{ route('front.home') }}" class="hover:text-brand-200 transition-colors">
             <div class="flex items-center space-x-2">
                 <!-- ロゴ画像を差し替えてください -->
-                <img src="/images/team6-logo.png" alt="Team6" class="h-8">
+                <img src="/images/team6-logo.png" alt="Team6" class="h-8 rounded-2xl">
                 <span class="text-xl font-bold text-brand-900">Team6</span>
             </div>
         </a>
@@ -29,7 +29,7 @@
             @if (Route::has('login'))
                 @auth
                     <li>
-                        <a href="{{ route('dashboard') }}" class="hover:text-brand-200 transition-colors">
+                        <a href="{{ route('mypage') }}" class="hover:text-brand-200 transition-colors">
                             マイページ
                         </a>
                     </li>

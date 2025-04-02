@@ -55,7 +55,8 @@
                     @auth
                         <h3 class="font-bold mb-3">会員機能</h3>
                         <ul class="space-y-1">
-                            <li><a href="#" class="hover:text-brand-200">お気に入り</a></li>
+                            <li><a href="{{ route('mypage') }}" class="hover:text-brand-200">マイページ</a></li>
+                            <li><a href="{{ route('favorites') }}" class="hover:text-brand-200">お気に入り</a></li>
                             <li>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
@@ -94,7 +95,7 @@
             <!-- ロゴと会社情報 -->
             <div class="flex items-center space-x-4 mb-4 md:mb-0">
                 <!-- ロゴ画像を差し替えてください -->
-                <img src="/images/team6-logo.png" alt="Team6" class="h-8">
+                <img src="/images/team6-logo.png" alt="Team6" class="h-8 rounded-2xl">
                 <div>
                     <p class="font-bold">Team6</p>
                 </div>

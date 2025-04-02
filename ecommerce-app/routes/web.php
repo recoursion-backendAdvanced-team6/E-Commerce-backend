@@ -9,6 +9,9 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\StripeWebhookController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\MyPageController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\OrderHistoryController;
 use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Http\Controllers\WebhookController as CashierWebhookController;
 use Illuminate\Http\Request;
@@ -75,6 +78,20 @@ Route::get('/mail', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+// マイページ
+Route::get('/mypage', [MyPageController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('mypage');
+
+// お気に入りと注文履歴
+Route::middleware(['auth'])->group(function () {
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites');
+    // 購入履歴一覧
+    Route::get('/orders', [OrderHistoryController::class, 'index'])->name('orders');
+    // 購入履歴の詳細ページ
+    Route::get('/orders/{order}', [OrderHistoryController::class, 'show'])->name('orders.show');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
