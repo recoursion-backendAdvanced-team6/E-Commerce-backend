@@ -27,12 +27,6 @@ class Product extends Model
         'is_digital',
     ];
 
-    // Categoryのリレーション
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
     // Product が属するタグのリレーション
     public function tags()
     {
@@ -41,10 +35,22 @@ class Product extends Model
         return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 
+    // Categoryのリレーション
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    
     // Authorのリレーション
     public function author()
     {
         return $this->belongsTo(Author::class);
+    }
+
+    // favorites リレーションの定義
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'product_id', 'user_id');
     }
 
     // 税込価格を計算して返すアクセサ
