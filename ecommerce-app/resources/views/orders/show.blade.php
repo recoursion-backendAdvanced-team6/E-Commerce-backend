@@ -10,7 +10,7 @@
                 <p>注文日: {{ $order->created_at->format('Y/m/d') }}</p>
                 <p>合計金額: {{ number_format($order->total_amount) }}円</p>
 
-                {{-- ステータス表示（画像小さめ、角丸） --}}
+                {{-- ステータス表示 --}}
                 <div class="flex items-center space-x-2 mt-2">
                     <p>ステータス</p>
                     @if($order->status === 'pending')
@@ -23,6 +23,15 @@
                         <span class="text-sm text-gray-600">キャンセル</span>
                     @endif
                 </div>
+
+                {{-- 請求書ダウンロード --}}
+                @if($order->stripe_invoice_url)
+                    <div class="mt-4">
+                        <a href="{{ $order->stripe_invoice_url }}" target="_blank" class="text-blue-500 underline">
+                            請求書（領収書）を確認・ダウンロード
+                        </a>
+                    </div>
+                @endif
 
                 {{-- 注文アイテム一覧 --}}
                 <div class="mt-6">

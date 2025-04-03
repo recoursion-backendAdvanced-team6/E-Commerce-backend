@@ -13,7 +13,8 @@ use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderHistoryController;
 use Illuminate\Support\Facades\Log;
-use Laravel\Cashier\Http\Controllers\WebhookController as CashierWebhookController;
+// use Laravel\Cashier\Http\Controllers\WebhookController as CashierWebhookController;
+use App\Http\Controllers\CustomCashierWebhookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Stripe\Webhook;
@@ -52,7 +53,8 @@ Route::get('/checkout/payment', [CheckoutController::class, 'showPaymentForm'])-
 Route::post('/checkout/payment', [CheckoutController::class, 'processPayment'])->name('checkout.payment.process');
 
 // Stripe Webhook 用ルート（Laravel Cashier の WebhookController を利用）
-Route::post('/stripe/webhook', [CashierWebhookController::class, 'handleWebhook'])->name('cashier.webhook');
+// Route::post('/stripe/webhook', [CashierWebhookController::class, 'handleWebhook'])->name('cashier.webhook');
+Route::post('/stripe/webhook', [CustomCashierWebhookController::class, 'handleWebhook'])->name('cashier.webhook');
 
 // Stripe Webhook/product/create 用ルート
 Route::post('/stripe/webhook/product/create', [StripeWebhookController::class, 'handleWebhook'])->name('webhook.product.create');

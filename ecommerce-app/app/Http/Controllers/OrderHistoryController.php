@@ -12,7 +12,10 @@ class OrderHistoryController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $orders = $user->orders()->with('orderItems.product')->get();
+        $orders = $user->orders()
+                    ->with('orderItems.product')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
 
         return view('orders.index', compact('orders'));
     }

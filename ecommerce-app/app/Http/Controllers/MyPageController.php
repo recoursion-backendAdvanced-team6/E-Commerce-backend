@@ -11,8 +11,11 @@ class MyPageController extends Controller
     {
         $user = Auth::user();
 
-        $favorites = $user->favorites; // Userモデルにお気に入り用のリレーションが定義されていることが前提
-        $orders = $user->orders;       // 同様に注文履歴用のリレーション
+        // 最新3件の「お気に入り」
+        $favorites = $user->favorites()->latest()->take(3)->get();
+
+        // 最新1件の「注文履歴」
+        $orders = $user->orders()->latest()->take(1)->get();
 
         return view('mypage.index', compact('user', 'favorites', 'orders'));
     }

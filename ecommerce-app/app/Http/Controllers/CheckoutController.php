@@ -176,6 +176,7 @@ class CheckoutController extends Controller
         $options = [
             'success_url' => route('order.complete') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url'  => route('checkout.payment'),
+            'metadata'    => ['order_id' => $order->id],
         ];
 
         // checkout() メソッドを呼び出して、既存の Stripe Price を利用した Checkout セッションを生成
