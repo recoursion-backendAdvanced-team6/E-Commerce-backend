@@ -1,6 +1,24 @@
 @props(['product'])
 
 <x-admin.dashboard-layout>
+        @if (session('success'))
+        <div class="mb-4 p-4 rounded bg-green-100 text-green-800">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="mb-4 p-4 rounded bg-red-100 text-red-800">
+            {{ $message }}
+        </div>
+    @endif
+
+    @foreach ($errors->all() as $error )
+        <div class="mb-4 p-4 rounded bg-red-100 text-red-800">
+            {{ $error }}
+        </div>
+    @endforeach
+
 
     <form action='{{route('admin.products.update', $product->id)}}' method="POST" enctype="multipart/form-data" class="max-w-3xl mx-auto space-y-6">
         @csrf
@@ -8,19 +26,36 @@
 
         <div class="max-w-3xl mx-auto space-y-16">
             <div class="grid grid-cols-1 grid-rows-2  items-center gap-1">
-                <label for="title" class="text-base">タイトル</label>
+
+                <div class='flex gap-x-2 items-center'>
+                    <label for="title" class="text-base">タイトル</label> 
+                    @error('title')
+                    <span class='text-sm text-red-800 px-1 rounded-sm bg-red-100'>修正</span> 
+                    @enderror
+                </div>
+
                 <input type="text" name="title" id="title"
                     class="border border-gray-300 rounded-md  w-full" value="{{ old('title', $product->title) }}">
             </div>
 
             <div class="grid grid-cols-1 grid-rows-2 items-center gap-1">
-                <label for="price" class="text-base">価格</label>
+                <div class='flex gap-x-2 items-center'>
+                    <label for="price" class="text-base">価格</label>
+                    @error('price')
+                    <span class='text-sm text-red-800 px-1 rounded-sm bg-red-100'>修正</span> 
+                    @enderror
+                </div>
                 <input type="number" name="price" id="price"
                     class=" border border-gray-300 rounded-md  w-full" value="{{ old('price', $product->price) }}">
             </div>
 
             <div class="grid grid-cols-1 grid-rows-1 gap-2">
-                <label for="image" class="text-base row-start-1">画像</label>
+                <div class='flex gap-x-2 items-center'>
+                    <label for="image" class="text-base row-start-1">画像</label>
+                    @error('image')
+                    <span class='text-sm text-red-800 px-1 rounded-sm bg-red-100'>修正</span> 
+                    @enderror
+                </div>
                 <div class='col-span-1'>
                     @if ($product->image_url)
                         <img id="preview" src="{{  $product->image_url }}" class="w-32 " />
@@ -45,14 +80,19 @@
 
 
             <div class="grid grid-cols-1 grid-rows-2 md:grid-cols-3 items-center gap-2 ">
-                <label for="inventory" class="text-base">公開</label>
+                <div class='flex gap-x-2 items-center'>
+                    <label for="inventory" class="text-base">公開</label>
+                    @error('status')
+                    <span class='text-sm text-red-800 px-1 rounded-sm bg-red-100'>修正</span> 
+                    @enderror
+                </div>
                 <label class="inline-flex items-center gap-2 row-start-2">
                     <input type="radio" name="status" value="draft"
                         {{ old('status', $product->status) === 'draft' ? 'checked' : '' }}>
                     <span>下書き</span>
                 </label>
                 <label class="inline-flex items-center gap-2 row-start-2">
-                    <input type="radio" name="status" value="public"
+                    <input type="radio" name="status" value="published"
                         {{ old('status', $product->status) === 'published' ? 'checked' : '' }}>
                     <span>公開</span>
                 </label>
@@ -60,7 +100,7 @@
         </div>
 
         <div class="mt-6 flex items-center justify-end gap-x-6">
-            <button type="button" class="text-sm/6 font-semibold rounded-md p-2 text-gray-900 hover:bg-gray-200">キャンセル</button>
+            <button type="button" onclick="history.back()" class="text-sm/6 font-semibold rounded-md p-2 text-gray-900 hover:bg-gray-200">キャンセル</button>
             <button type="submit" class="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">編集</button>
         </div>
 
