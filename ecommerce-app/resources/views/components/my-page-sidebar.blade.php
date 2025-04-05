@@ -14,7 +14,7 @@
         {{-- 購入履歴 --}}
         <a href="{{ route('orders') }}"
            class="block py-2 text-gray-700 hover:bg-gray-200 rounded px-2 text-sm md:text-base">
-            購入履歴
+            購入履歴一覧
         </a>
         {{-- プロフィール --}}
         <a href="{{ route('profile.edit') }}"

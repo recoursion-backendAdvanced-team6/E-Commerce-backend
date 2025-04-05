@@ -61,16 +61,16 @@
                                     <div class="mb-4">
                                         <div class="flex items-center space-x-2 mt-2">
                                             @if($latestOrder->status === 'pending')
-                                                <img src="{{ asset('images/status-pending.svg') }}" alt="保留中" class="max-w-[95%] min-w-[350px] mx-auto max-[500px]:hidden">
+                                                <img src="{{ asset('images/status-pending.svg') }}" alt="保留中" class="max-w-[95%] min-w-[350px] mx-auto max-[1025px]:hidden">
                                                 <span class="text-sm text-gray-600">保留中</span>
                                             @elseif($latestOrder->status === 'processing')
-                                                <img src="{{ asset('images/status-purchase.svg') }}" alt="購入手続き中" class="max-w-[95%] min-w-[350px] mx-auto max-[500px]:hidden">
+                                                <img src="{{ asset('images/status-purchase.svg') }}" alt="購入手続き中" class="max-w-[95%] min-w-[350px] mx-auto max-[1025px]:hidden">
                                                 <span class="text-sm text-gray-600">購入手続き中</span>
                                             @elseif($latestOrder->status === 'completed')
-                                                <img src="{{ asset('images/status-shipping.svg') }}" alt="発送準備中" class="max-w-[95%] min-w-[350px] mx-auto max-[500px]:hidden">
+                                                <img src="{{ asset('images/status-shipping.svg') }}" alt="発送準備中" class="max-w-[95%] min-w-[350px] mx-auto max-[1025px]:hidden">
                                                 <span class="text-sm text-gray-600">発送準備中</span>
                                             @elseif($latestOrder->status === 'cancelled')
-                                                <img src="{{ asset('images/status-cancel.svg') }}" alt="キャンセル" class="max-w-[95%] min-w-[350px] mx-auto max-[500px]:hidden">
+                                                <img src="{{ asset('images/status-cancel.svg') }}" alt="キャンセル" class="max-w-[95%] min-w-[350px] mx-auto max-[1025px]:hidden">
                                                 <span class="text-sm text-gray-600">キャンセル</span>
                                             @endif
                                         </div>
