@@ -25,7 +25,7 @@ class AdminProductController extends Controller
 
             // 入力のバリデーション
             $validated = $request->validate([
-                'title' => ['required','string','max:10'] ,
+                'title' => ['required','string','max:255'] ,
                 'description' => ['nullable', 'string'],
                 'price' => ['required','numeric', 'min:0', 'max:9999999999' ],
                 'image' =>['nullable', 'image', 'max:2048'],
