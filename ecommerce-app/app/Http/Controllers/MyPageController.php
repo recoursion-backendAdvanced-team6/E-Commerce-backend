@@ -12,7 +12,11 @@ class MyPageController extends Controller
         $user = Auth::user();
 
         // 最新3件の「お気に入り」
-        $favorites = $user->favorites()->latest()->take(3)->get();
+        $favorites = $user->favorites()
+                            ->wherePivot('deleted_at', NULL)
+                            ->orderBy('favorites.updated_at', 'desc')
+                            ->take(3)
+                            ->get();
 
         // 最新1件の「注文履歴」
         $orders = $user->orders()->latest()->take(1)->get();

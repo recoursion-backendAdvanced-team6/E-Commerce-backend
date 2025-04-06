@@ -16,15 +16,16 @@
                 <div class="bg-white shadow-sm rounded p-4 mb-6">
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-xl font-bold">最新のお気に入り</h2>
-                        <a href="{{ route('favorites') }}" class="text-blue-500 underline">お気に入り一覧</a>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                         @forelse($favorites->take(3) as $product)
-                            <div class="border p-2 rounded">
-                                <img src="{{ $product->image_url ?? '/images/no-image.png' }}" alt="{{ $product->title }}" class="mb-2 w-full h-auto object-cover rounded-md">
-                                <h3 class="font-semibold">{{ $product->title }}</h3>
-                                <p class="text-sm text-gray-500">価格: {{ number_format($product->price) }}円</p>
-                            </div>
+                            <a href="{{ route('front.product.show', $product->id) }}">
+                                <div class="border p-2 rounded">
+                                    <img src="{{ $product->image_url ?? '/images/no-image.png' }}" alt="{{ $product->title }}" class="mb-2 w-full h-auto object-cover rounded-md">
+                                    <h3 class="font-semibold">{{ $product->title }}</h3>
+                                    <p class="text-sm text-gray-500">価格: {{ number_format($product->price) }}円</p>
+                                </div>
+                            </a>
                         @empty
                             <p class="col-span-full text-gray-500">お気に入りはありません。</p>
                         @endforelse

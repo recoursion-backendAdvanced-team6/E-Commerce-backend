@@ -18,6 +18,7 @@
 
 今後の配送状況等は別途ご連絡いたします。
 
-Thanks,<br>
-{{ config('app.name') }}
+<a href="{{ config('app.url') }}" style="color: inherit; text-decoration: none;">
+    {{ config('app.name') }}
+</a>
 @endcomponent

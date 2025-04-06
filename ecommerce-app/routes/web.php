@@ -88,7 +88,10 @@ Route::get('/mypage', [MyPageController::class, 'index'])
 
 // お気に入りと注文履歴
 Route::middleware(['auth'])->group(function () {
+    // お気に入り
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites');
+    Route::post('favorites', [FavoriteController::class, 'store'])->name('favorites.store');
+    Route::delete('favorites/{product}', [FavoriteController::class, 'destroy'])->name('favorites.remove');
     // 購入履歴一覧
     Route::get('/orders', [OrderHistoryController::class, 'index'])->name('orders');
     // 購入履歴の詳細ページ
