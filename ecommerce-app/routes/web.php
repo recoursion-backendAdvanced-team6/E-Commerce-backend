@@ -13,6 +13,7 @@ use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderHistoryController;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 // use Laravel\Cashier\Http\Controllers\WebhookController as CashierWebhookController;
 use App\Http\Controllers\CustomCashierWebhookController;
 use Illuminate\Http\Request;
@@ -20,8 +21,11 @@ use Illuminate\Support\Facades\Cache;
 use Stripe\Webhook;
 
 use App\Models\Product;
+use App\Models\Order;
 use PhpParser\Node\Stmt\Break_;
 use Illuminate\Support\Str;
+
+use App\Mail\OrderConfirmationMail;
 
 // サイトトップ
 Route::get('/', [HomeController::class, 'index'])->name('front.home');
