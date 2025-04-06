@@ -9,6 +9,8 @@ use Stripe\Exception\SignatureVerificationException;
 use Stripe\Stripe;
 use Stripe\Webhook;
 use Stripe\Event;
+use Stripe\Price;
+use Stripe\Product as stripeProduct;
 
 use App\Models\Order;
 use App\Models\Product;
@@ -144,16 +146,43 @@ class StripeWebhookController extends Controller
     }
 
 
-    public function sendUpdateProductData(Product $product){
+    // 一旦この状態。コントローラーを組み直すか、コントローラーから切り離した方が良さそう
+    public static function sendUpdateProductData(Product $product){
+        Stripe::setApiKey(config('services.stripe.secret'));
 
+
+        $productData = self::generateProductData($product);
+        $priceData = self::generatePriceData($product);
+
+        $newPrice =  Price::create($priceData);
+
+        stripeProduct::update($product->stripe_product_id, [
+            ...$productData,
+            'default_price' => $newPrice->id
+        ]);
     }
 
-    protected function generateProductData(Product $product){
-
+    public static function generateProductData(Product $product): array{
+        return [
+            'name' => $product->title,
+            'description' => $product->description,
+            'images' => $product->image_url ? [$product->image_url] : [],
+            //shippable 必要であれば
+            //'shippable' => true,
+            'metadata' => [
+                'is_digital' => $product->is_digital,
+                'status' => $product->status
+            ]
+        ];
     }
 
-    protected function generatePriceData(Product $product){
-
+    public static function generatePriceData(Product $product, string $currency='jpy'): array{
+        return [
+            // 
+           'unit_amount' => (int) round($product->price),
+           'currency' =>  $currency,
+           'product' => $product->stripe_product_id
+        ];
     }
 }
 

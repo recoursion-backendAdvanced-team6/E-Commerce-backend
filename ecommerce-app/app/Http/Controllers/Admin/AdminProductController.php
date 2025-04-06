@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\StripeWebhookController;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Validation\ValidationException;
@@ -52,6 +53,8 @@ class AdminProductController extends Controller
             $product->fill($validated);
             $product->save();
 
+            // stripeAPIで情報を更新
+            StripeWebhookController::sendUpdateProductData($product);
 
             return redirect()
             ->route('admin.products.edit', $product->id)
