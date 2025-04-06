@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Author;
 
 class Product extends Model
 {
@@ -26,18 +27,30 @@ class Product extends Model
         'is_digital',
     ];
 
-    // Categoryのリレーション
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
     // Product が属するタグのリレーション
     public function tags()
     {
         // Eloquent はデフォルトで、products テーブルの category_id に対応する関係を探しますが、
         // belongsToMany では、中間テーブル product_tags を利用し、Product と Tag の関係を管理します。
         return $this->belongsToMany(Tag::class)->withTimestamps();
+    }
+
+    // Categoryのリレーション
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    
+    // Authorのリレーション
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
+    }
+
+    // favorites リレーションの定義
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'product_id', 'user_id');
     }
 
     // 税込価格を計算して返すアクセサ

@@ -22,6 +22,8 @@ class Order extends Model
         'shipping_street_address',
         'shipping_city',
         'shipping_phone',
+        'stripe_invoice_url',
+        'stripe_invoice_id',
     ];
 
     public function items(){

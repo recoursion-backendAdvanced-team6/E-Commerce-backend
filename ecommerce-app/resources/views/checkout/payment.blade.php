@@ -29,8 +29,8 @@
             <table class="w-full border-collapse">
                 <thead>
                     <tr class="border-b">
-                        <th class="text-left p-2">商品画像</th>
-                        <th class="text-left p-2">商品名</th>
+                        <th class="text-left p-2">商品</th>
+                        <th class="text-left p-2"></th>
                         <th class="text-right p-2">数量</th>
                         <th class="text-right p-2">価格(税込)</th>
                         <th class="text-right p-2">小計</th>
@@ -47,7 +47,9 @@
                                      alt="{{ $product->title }}"
                                      class="w-12 h-auto rounded">
                             </td>
-                            <td class="p-2">{{ $product->title }}</td>
+                            <td class="p-2">{{ $product->title }}
+                                <p class="text-sm">{{ $product->author?->name ?? '' }}</p>
+                            </td>
                             <td class="p-2 text-right">{{ $product->quantity }}</td>
                             <td class="p-2 text-right">¥{{ number_format($product->taxed_price) }}</td>
                             <td class="p-2 text-right">¥{{ number_format($subtotal) }}</td>

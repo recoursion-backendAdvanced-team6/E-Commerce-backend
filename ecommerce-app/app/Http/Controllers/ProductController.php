@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -13,11 +14,29 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::query()
+        $products = Product::with('author')
+            ->where('status', 'published')
+            ->where('inventory', '>=', 1)
             ->orderByDesc('created_at')
             ->paginate(10);
 
         return view('front.product', compact('products'));
+    }
+
+    /**
+     * カテゴリ別
+     */
+    public function category(Category $category)
+    {
+        $products = Product::with('author')
+            ->where('status', 'published')
+            ->where('inventory', '>=', 1)
+            ->where('category_id', $category->id)
+            ->orderByDesc('created_at')
+            ->paginate(10);
+
+        // category も渡して、ビュー側でパンくずリストやタイトルに利用できるようにする
+        return view('front.product', compact('products', 'category'));
     }
 
     /**
