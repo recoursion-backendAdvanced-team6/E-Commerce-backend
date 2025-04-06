@@ -13,7 +13,7 @@ class OrderHistoryController extends Controller
     {
         $user = Auth::user();
         $orders = $user->orders()
-                    ->with('orderItems.product')
+                    ->with('items.product')
                     ->orderBy('created_at', 'desc')
                     ->get();
 

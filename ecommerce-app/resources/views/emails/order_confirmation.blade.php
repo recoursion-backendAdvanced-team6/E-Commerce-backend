@@ -9,7 +9,7 @@
 @component('mail::table')
 | 商品名        | 数量  | 価格       |
 | ------------- |:-----:| ----------:|
-@foreach ($order->orderItems as $item)
+@foreach ($order->items as $item)
 | {{ $item->product->title ?? '不明な商品' }} | {{ $item->quantity }} | {{ number_format($item->price) }}円 |
 @endforeach
 @endcomponent

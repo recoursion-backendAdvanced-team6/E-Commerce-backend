@@ -22,7 +22,7 @@
                         <div>
                             <h3 class="text-lg font-semibold mb-2">注文商品</h3>
                             <div class="space-y-4">
-                                @foreach($order->orderItems as $item)
+                                @foreach($order->items as $item)
                                     <div class="flex items-center space-x-4">
                                         <img 
                                             src="{{ $item->product->image_url ?? '/images/no-image.png' }}" 

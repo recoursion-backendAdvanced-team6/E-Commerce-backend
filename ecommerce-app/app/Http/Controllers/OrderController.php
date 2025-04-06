@@ -26,7 +26,7 @@ class OrderController extends Controller
         }
 
         // 在庫を更新する
-        foreach ($order->orderItems as $item) {
+        foreach ($order->items as $item) {
             $product = Product::find($item->product_id);
             if ($product) {
                 $product->decrement('inventory', $item->quantity);

@@ -44,7 +44,7 @@
                                 {{-- 左側：大きめの画像（ここでは最新の注文アイテムの最初の画像を表示） --}}
                                 <div class="w-full md:w-1/3 flex justify-center items-center mb-4 md:mb-0">
                                     @php
-                                        $firstItem = $latestOrder->orderItems->first();
+                                        $firstItem = $latestOrder->items->first();
                                     @endphp
                                     @if($firstItem)
                                         <img src="{{ $firstItem->product->image_url ?? '/images/no-image.png' }}" alt="{{ $firstItem->product->title }}" class="w-full max-w-[200px] object-cover rounded-md">

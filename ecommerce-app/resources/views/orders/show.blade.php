@@ -37,7 +37,7 @@
                 <div class="mt-6">
                     <h2 class="text-xl font-bold mb-4">注文商品</h2>
                     <ul class="space-y-4">
-                        @foreach ($order->orderItems as $item)
+                        @foreach ($order->items as $item)
                             <li class="flex items-center space-x-4 border-b pb-2">
                                 <img src="{{ $item->product->image_url ?? '/images/no-image.png' }}" alt="{{ $item->product->title }}" class="w-16 h-16 object-cover rounded">
                                 <div>
