@@ -142,5 +142,18 @@ class StripeWebhookController extends Controller
 
         return response('success', 200);
     }
+
+
+    public function sendUpdateProductData(Product $product){
+
+    }
+
+    protected function generateProductData(Product $product){
+
+    }
+
+    protected function generatePriceData(Product $product){
+
+    }
 }
 

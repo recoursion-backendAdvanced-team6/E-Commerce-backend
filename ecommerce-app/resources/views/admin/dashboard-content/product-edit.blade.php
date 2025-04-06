@@ -78,6 +78,24 @@
                     class=" border border-gray-300 rounded-md  w-full" value="{{ old('inventory', $product->inventory) }}">
             </div>
 
+            <div class="grid grid-cols-1 grid-rows-2 md:grid-cols-3 items-center gap-2 ">
+                <div class='flex gap-x-2 items-center'>
+                    <label for="is_digital" class="text-base">商品タイプ</label>
+                    @error('is_digital')
+                    <span class='text-sm text-red-800 px-1 rounded-sm bg-red-100'>修正</span> 
+                    @enderror
+                </div>
+                <label class="inline-flex items-center gap-2 row-start-2">
+                    <input type="radio" name="is_digital" value='0'
+                        {{ old('is_digital', $product->is_digital) === 1 ? 'checked' : '' }}>
+                    <span>デジタル商品</span>
+                </label>
+                <label class="inline-flex items-center gap-2 row-start-2">
+                    <input type="radio" name="is_digital" value="1"
+                        {{ old('is_digital', $product->is_digital) === 0 ? 'checked' : '' }}>
+                    <span>物理商品</span>
+                </label>
+            </div>
 
             <div class="grid grid-cols-1 grid-rows-2 md:grid-cols-3 items-center gap-2 ">
                 <div class='flex gap-x-2 items-center'>
