@@ -14,23 +14,25 @@
                 </thead>
                 <tbody>
                     @foreach ($orderItems as $item)
-                    @php $product = $item->product; @endphp
-                        <tr class="border-b">    
-                            <td class="p-3">
-                                <a href="" class="flex items-center space-x-2">
-                                    <img src="{{ $product->image_url ?? '/images/no-image.png' }}"
-                                        alt="{{ $product->title }}"
-                                        class="w-12 h-auto rounded">
-                                    <div>
-                                        <div class="font-semibold">{{ $product->title }}</div>
-                                        <div class="text-xs text-gray-500">カテゴリ: {{ $product->category->name ?? '未分類' }}</div>
-                                    </div>
-                                </a>
-                            </td>
-                            <td class="p-3">¥{{ number_format($product->taxed_price) }}</td>
-                            <td class="p-3 text-center">{{ number_format($item->quantity) }}</td>
-                            <td class="p-3 text-right">¥{{ number_format($item->price) }}</td>
-                        </tr>
+                        @php $product = $item->product; @endphp
+                        @if($product)
+                            <tr class="border-b">    
+                                <td class="p-3">
+                                    <a href="" class="flex items-center space-x-2">
+                                        <img src="{{ $product->image_url ?? '/images/no-image.png' }}"
+                                            alt="{{ $product->title ? $product->title : ''}}"
+                                            class="w-12 h-auto rounded">
+                                        <div>
+                                            <div class="font-semibold">{{ $product->title }}</div>
+                                            <div class="text-xs text-gray-500">カテゴリ: {{ $product->category->name ?? '未分類' }}</div>
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="p-3">¥{{ number_format($product->taxed_price) }}</td>
+                                <td class="p-3 text-center">{{ number_format($item->quantity) }}</td>
+                                <td class="p-3 text-right">¥{{ number_format($item->price) }}</td>
+                            </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>
