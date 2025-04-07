@@ -162,6 +162,19 @@ class StripeWebhookController extends Controller
         ]);
     }
 
+    public static function deleteProduct(Product $product){
+        Stripe::setApiKey(config('services.stripe.secret'));
+        /*
+        $strpieProduct = stripeProduct::retrieve($product->stripe_product_id);
+        $strpieProduct->delete();
+        */
+
+        // priceがあると削除ができないため非アクティブにする
+        stripeProduct::update($product->stripe_product_id, [
+            'active' => false
+        ]);
+    }
+
     public static function generateProductData(Product $product): array{
         return [
             'name' => $product->title,

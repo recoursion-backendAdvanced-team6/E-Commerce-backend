@@ -1,6 +1,8 @@
 @props(['products'])
 
 <x-admin.dashboard-layout>
+<x-flash-message/>
+
     <div class='flex mb-5' >
         <a 
             class="ml-auto border-2 border-indigo-400 rounded-sm p-2" 
@@ -41,7 +43,11 @@
                     <a href='{{route('admin.products.edit', $product->id)}}' class='text-base'> 更新 </a>
                 </div>
                 <div class='flex flex-col grid-span-end gap-y-5 justify-end'>
-                    <a href='{{route('admin.products.destroy', $product->id)}}' class='text-base'> 削除</a>
+                    <form action="{{route('admin.products.destroy', $product->id)}}" method='POST' onsubmit="return confirm('本当に削除しますか?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type='submit'class="text-red-600 hover:underline text-base">削除</button> 
+                    </form>
                 </div>
             </div>
         @endforeach

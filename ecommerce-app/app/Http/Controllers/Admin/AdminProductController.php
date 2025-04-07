@@ -11,15 +11,18 @@ use Throwable;
 
 class AdminProductController extends Controller
 {
+    //商品一覧を表示
+    public function index(){
+        $products = Product::whereNull('deleted_at')->get();
+
+        return view('admin.dashboard-content.products', compact('products'));
+    }
+
     //商品の編集画面を表示
     public function edit(Product $product){
         return view('admin.dashboard-content.product-edit', compact('product'));
     }
 
-    public function show(Product $product){
-
-        return view('admin.dashboard-content.product-edit', compact('product'));
-    }
 
     //更新情報を処理する
     public function update(Request $request, Product $product){
@@ -65,6 +68,12 @@ class AdminProductController extends Controller
     }
 
     // アイテムを削除
-    public function destroy(){
+    public function destroy(Product $product){
+        $product->delete();
+        StripeWebhookController::deleteProduct($product);
+
+        return redirect()
+        ->route('admin.dashboard.products')
+        ->with('success', "{$product->title} が削除されました");
     }
 }
