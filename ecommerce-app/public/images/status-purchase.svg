@@ -1,0 +1,35 @@
+<svg width="700" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#fff" />
+
+  <line x1="150" y1="100" x2="300" y2="100" stroke="#ccc" stroke-width="2" />
+  <line x1="300" y1="100" x2="450" y2="100" stroke="#ccc" stroke-width="2" />
+  <line x1="450" y1="100" x2="600" y2="100" stroke="#ccc" stroke-width="2" />
+
+  <!-- 保留中（非アクティブ：グレー） -->
+  <g>
+    <circle cx="100" cy="100" r="30" fill="#ccc" />
+    <text x="100" y="107" text-anchor="middle" font-size="24" fill="#fff" font-family="Arial, sans-serif">…</text>
+    <text x="100" y="150" text-anchor="middle" font-size="16" fill="#333" font-family="Arial, sans-serif">保留中</text>
+  </g>
+
+  <!-- 購入手続き中（アクティブ：鮮やかなオレンジ） -->
+  <g>
+    <circle cx="250" cy="100" r="30" fill="#ff9800" />
+    <text x="250" y="107" text-anchor="middle" font-size="24" fill="#fff" font-family="Arial, sans-serif">✓</text>
+    <text x="250" y="150" text-anchor="middle" font-size="16" fill="#333" font-family="Arial, sans-serif">購入手続き中</text>
+  </g>
+
+  <!-- 発送準備中（非アクティブ：グレー） -->
+  <g>
+    <circle cx="400" cy="100" r="30" fill="#ccc" />
+    <text x="400" y="107" text-anchor="middle" font-size="24" fill="#fff" font-family="Arial, sans-serif">🚚</text>
+    <text x="400" y="150" text-anchor="middle" font-size="16" fill="#333" font-family="Arial, sans-serif">発送準備中</text>
+  </g>
+
+  <!-- キャンセル（非アクティブ：グレー） -->
+  <g>
+    <circle cx="550" cy="100" r="30" fill="#ccc" />
+    <text x="550" y="107" text-anchor="middle" font-size="24" fill="#fff" font-family="Arial, sans-serif">×</text>
+    <text x="550" y="150" text-anchor="middle" font-size="16" fill="#333" font-family="Arial, sans-serif">キャンセル</text>
+  </g>
+</svg>
