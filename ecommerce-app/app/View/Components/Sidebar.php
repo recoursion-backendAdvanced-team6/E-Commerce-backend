@@ -27,8 +27,7 @@ class Sidebar extends Component
         
         // 管理者
         $this->menuItems =  [
-            ['label' => '商品追加', 'url' => '/admin/dashboard/product/create'],
-            ['label' => '商品一覧', 'url' => route('admin.dashboard.products')],
+            ['label' => '商品一覧', 'url' => route('admin.products.index')],
             ['label' => '注文一覧', 'url' => route('admin.dashboard.orders')],
         ];
     }

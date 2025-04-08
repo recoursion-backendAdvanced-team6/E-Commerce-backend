@@ -9,6 +9,8 @@ use Stripe\Exception\SignatureVerificationException;
 use Stripe\Stripe;
 use Stripe\Webhook;
 use Stripe\Event;
+use Stripe\Price;
+use Stripe\Product as stripeProduct;
 
 use App\Models\Order;
 use App\Models\Product;
@@ -141,6 +143,59 @@ class StripeWebhookController extends Controller
         }
 
         return response('success', 200);
+    }
+
+
+    // 一旦この状態。コントローラーを組み直すか、コントローラーから切り離した方が良さそう
+    public static function sendUpdateProductData(Product $product){
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+
+        $productData = self::generateProductData($product);
+        $priceData = self::generatePriceData($product);
+
+        $newPrice =  Price::create($priceData);
+
+        stripeProduct::update($product->stripe_product_id, [
+            ...$productData,
+            'default_price' => $newPrice->id
+        ]);
+    }
+
+    public static function deleteProduct(Product $product){
+        Stripe::setApiKey(config('services.stripe.secret'));
+        /*
+        $strpieProduct = stripeProduct::retrieve($product->stripe_product_id);
+        $strpieProduct->delete();
+        */
+
+        // priceがあると削除ができないため非アクティブにする
+        stripeProduct::update($product->stripe_product_id, [
+            'active' => false
+        ]);
+    }
+
+    public static function generateProductData(Product $product): array{
+        return [
+            'name' => $product->title,
+            'description' => $product->description,
+            'images' => $product->image_url ? [$product->image_url] : [],
+            //shippable 必要であれば
+            //'shippable' => true,
+            'metadata' => [
+                'is_digital' => $product->is_digital,
+                'status' => $product->status
+            ]
+        ];
+    }
+
+    public static function generatePriceData(Product $product, string $currency='jpy'): array{
+        return [
+            // 
+           'unit_amount' => (int) round($product->price),
+           'currency' =>  $currency,
+           'product' => $product->stripe_product_id
+        ];
     }
 }
 
