@@ -1,8 +1,12 @@
 <x-front-layout>
-    <div class='flex justify-center'>
+    <div class='flex flex-col justify-center items-center gap-5'>
         <h1 class='text-2xl'> 管理者ログイン<h1>
+        <!-- ログアウトメッセージ　-->
+        @if(session('message'))
+            <div class="bg-green-100 text-green-600 px-2">{{ session('message') }}</div>
+        @endif
     </div>
-
+    <!-- フラッシュメッセージ-->
     <x-flash-message/>
     <x-guest-layout>
         <!-- Session Status -->

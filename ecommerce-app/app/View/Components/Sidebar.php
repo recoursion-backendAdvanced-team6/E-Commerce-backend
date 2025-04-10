@@ -29,6 +29,7 @@ class Sidebar extends Component
         $this->menuItems =  [
             ['label' => '商品一覧', 'url' => route('admin.products.index')],
             ['label' => '注文一覧', 'url' => route('admin.dashboard.orders')],
+            ['label' => 'ログアウト', 'url' => route('admin.logout')],
         ];
     }
 
