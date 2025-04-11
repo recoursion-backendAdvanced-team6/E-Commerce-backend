@@ -24,13 +24,15 @@
                             <div class="space-y-4">
                                 @foreach($order->items as $item)
                                     <div class="flex items-center space-x-4">
+                                        {{-- productがnullの場合のガードを追加 --}}
                                         <img 
-                                            src="{{ $item->product->image_url ?? '/images/no-image.png' }}" 
-                                            alt="{{ $item->product->title }}" 
+                                            src="{{ $item->product ? $item->product->image_url : '/images/no-image.png' }}" 
+                                            alt="{{ $item->product ? $item->product->title : 'No title' }}" 
                                             class="w-16 h-16 object-cover rounded"
                                         />
                                         <div>
-                                            <p class="font-semibold">{{ $item->product->title }}</p>
+                                            {{-- productがnullの場合のガードを追加 --}}
+                                            <p class="font-semibold">{{ $item->product ? $item->product->title : 'No title' }}</p>
                                             <p class="text-sm text-gray-500">
                                                 {{ number_format($item->price) }}円 × {{ $item->quantity }}
                                             </p>

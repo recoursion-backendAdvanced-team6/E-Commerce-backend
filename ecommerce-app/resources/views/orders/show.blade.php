@@ -39,9 +39,13 @@
                     <ul class="space-y-4">
                         @foreach ($order->items as $item)
                             <li class="flex items-center space-x-4 border-b pb-2">
-                                <img src="{{ $item->product->image_url ?? '/images/no-image.png' }}" alt="{{ $item->product->title }}" class="w-16 h-16 object-cover rounded">
+                                {{-- productがnullの場合に備えて条件分岐 --}}
+                                <img src="{{ $item->product ? $item->product->image_url : '/images/no-image.png' }}" 
+                                     alt="{{ $item->product ? $item->product->title : 'No title' }}" 
+                                     class="w-16 h-16 object-cover rounded">
                                 <div>
-                                    <p class="font-semibold">{{ $item->product->title }}</p>
+                                    {{-- productがnullの場合に備えて条件分岐 --}}
+                                    <p class="font-semibold">{{ $item->product ? $item->product->title : 'No title' }}</p>
                                     <p class="text-sm text-gray-500">{{ number_format($item->price) }}円 × {{ $item->quantity }}</p>
                                 </div>
                             </li>
