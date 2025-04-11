@@ -3,7 +3,6 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use App\Http\Kernel;
 
 //return Application::configure(basePath: dirname(__DIR__))   
 $app = Application::configure(basePath: dirname(__DIR__))   
@@ -13,6 +12,11 @@ $app = Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // Auth:adminのためにデフォルトから作成したAuthenticateに変える
+        $middleware->alias([
+            'auth' => \App\Http\Middleware\Authenticate::class, 
+        ]);
+
         // CSRFを無功にしたいルートの設定
         $middleware->validateCsrfTokens(except: [
             'stripe/webhook',
@@ -23,9 +27,5 @@ $app = Application::configure(basePath: dirname(__DIR__))
         //
     })->create();
 
-$app->singleton(
-    Illuminate\Contracts\Http\Kernel::class,
-    App\Http\Kernel::class
-);
     
 return $app;
