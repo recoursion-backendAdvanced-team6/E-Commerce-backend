@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 use Laravel\Cashier\Cashier;
 use App\Models\Cashier\Subscription;
 use App\Models\Cashier\SubscriptionItem;
+use App\View\Components\MyPageSidebar;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,5 +28,8 @@ class AppServiceProvider extends ServiceProvider
         Cashier::calculateTaxes();
         Cashier::useSubscriptionModel(Subscription::class);
         Cashier::useSubscriptionItemModel(SubscriptionItem::class);
+
+        // Blade コンポーネントの登録
+        Blade::component('mypage-sidebar', MyPageSidebar::class);  // コンポーネントの登録
     }
 }
