@@ -23,8 +23,8 @@ jobs:
       # 3. DockerとDocker Composeのインストール
       - name: Set up Docker and Docker Compose
         run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io
+          curl -fsSL https://get.docker.com | sudo sh
+          sudo usermod -aG docker $USER
           sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
 
