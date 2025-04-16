@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('country', 100);
             $table->string('zipcode', 20);
-            $table->text('steet_address');
+            $table->string('street_address');
             $table->string('city');
             $table->string('phone', 20);
             $table->timestamp('email_verified_at')->nullable();
