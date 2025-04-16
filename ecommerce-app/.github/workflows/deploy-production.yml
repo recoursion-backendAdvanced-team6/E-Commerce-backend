@@ -1,40 +1,45 @@
-# .github/workflows/deploy-production.yml
-
 name: Deploy to Production
 
 on:
-  workflow_dispatch:  # 手動でのトリガー
+  workflow_dispatch:  # 手動実行のみ（mainブランチにプッシュされたとき）
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. リポジトリをチェックアウト
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      # 1. リポジトリをチェックアウト
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    # 2. SSH接続のセットアップ（秘密鍵を使用）
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+      # 2. SSH接続のセットアップ（秘密鍵を使用）
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
 
-    # 3. DockerとDocker Composeのインストール
-    - name: Set up Docker and Docker Compose
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y docker.io
-        sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-        sudo chmod +x /usr/local/bin/docker-compose
+      # 3. EC2にデプロイ（Dockerはすでに入っている想定）
+      - name: Deploy to EC2 Production Server
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.PRODUCTION_EC2_IP }} << 'EOF'
+            cd /var/www/ecommerce-deploy/E-Commerce-backend/ecommerce-app
 
-    # 4. EC2にデプロイ
-    - name: Deploy to EC2 Production Server
-      run: |
-        ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.PRODUCTION_EC2_IP }} << EOF
-          # EC2サーバー内で実行するコマンド
-          cd /var/www/html  # プロジェクトのディレクトリに移動
-          git pull origin staging  # stagingブランチをプル
-          docker-compose -f docker-compose.yml up -d --build  # Dockerコンテナを再ビルドして起動
-        EOF
+            echo "📥 Pulling latest changes..."
+            git pull origin main
 
+            echo "🐳 Rebuilding Docker containers..."
+            docker-compose -f docker-compose.yml up -d --build
+
+            echo "🧼 Running Laravel setup..."
+            docker-compose exec app bash -c "
+              chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && \
+              chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache && \
+              php artisan config:clear && \
+              php artisan route:clear && \
+              php artisan view:clear && \
+              php artisan config:cache && \
+              php artisan route:cache
+            "
+
+            echo "✅ Production deployment complete!"
+          EOF
