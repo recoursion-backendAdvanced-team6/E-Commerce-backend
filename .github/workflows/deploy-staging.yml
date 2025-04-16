@@ -20,15 +20,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
 
-      # 3. DockerとDocker Composeのインストール
-      - name: Set up Docker and Docker Compose
-        run: |
-          curl -fsSL https://get.docker.com | sudo sh
-          sudo usermod -aG docker $USER
-          sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
-
-      # 4. EC2にデプロイ
+      # 3. EC2にデプロイ（Docker操作も含む）
       - name: Deploy to EC2 Staging Server
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.STAGING_EC2_IP }} << 'EOF'
