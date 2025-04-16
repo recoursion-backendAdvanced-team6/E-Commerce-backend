@@ -13,7 +13,7 @@
         <ul class="flex items-center space-x-6 text-brand-900">
             <li>
                 <a href="{{ route('front.products') }}" class="hover:text-brand-200 transition-colors">
-                    一覧
+                    一覧!!
                 </a>
             </li>
             <li>
