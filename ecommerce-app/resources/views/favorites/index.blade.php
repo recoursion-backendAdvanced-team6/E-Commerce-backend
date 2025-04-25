@@ -17,7 +17,7 @@
                                 class="w-full h-48 object-cover mb-3 rounded-lg"
                             />
                             <h2 class="text-lg font-semibold mb-2">{{ $product->title }}</h2>
-                            <p class="text-gray-700 mb-2">価格: {{ number_format($product->price) }}円</p>
+                            <p class="text-gray-700 mb-2">価格: {{ number_format($product->taxed_price) }}円（税込）</p>
                             <div class="flex space-x-2">
                                 {{-- お気に入り解除ボタン（Ajaxで削除してリロード） --}}
                                 <button id="fav-button-{{ $product->id }}"

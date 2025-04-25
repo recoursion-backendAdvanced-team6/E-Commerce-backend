@@ -23,7 +23,7 @@
                                 <div class="border p-2 rounded">
                                     <img src="{{ $product->image_url ?? '/images/no-image.png' }}" alt="{{ $product->title }}" class="mb-2 w-full h-auto object-cover rounded-md">
                                     <h3 class="font-semibold">{{ $product->title }}</h3>
-                                    <p class="text-sm text-gray-500">価格: {{ number_format($product->price) }}円</p>
+                                    <p class="text-sm text-gray-500">価格: {{ number_format($product->taxed_price) }}円（税込）</p>
                                 </div>
                             </a>
                         @empty
