@@ -2,9 +2,9 @@
 # Ecommerce-app
 ## URL
 ## 概要
-チーム開発、ソフトウェア開発を学ぶことをベースとしたECサイトのデモアプリになります
+チーム開発やソフトウェア開発を学ぶことを目的とした、ECサイトのデモアプリになります
 
-##　技術スタック
+##　技術スタック 
 <table>
 <tr>
  <th>カテゴリ</th>
@@ -65,7 +65,7 @@
 　<td>Stripe CheckOut</td>
 </tr>
 <tr>
-　<td>Laravel Casher(Stripe)</td>
+　<td>Laravel Cashier(Stripe)</td>
 </tr>
 <tr>
  <td> コンテナ</td>
@@ -157,9 +157,9 @@
 <hr>
 
 ## 解説
-このアプリケーションは出版社が自社で持っているECサイトを想定して作成しました<br>
+このアプリケーションは、出版社が自社運営するECサイトを想定して作成しました<br>
 決済手段としてStripeを使用しています<br>
-ダミーデータを使用しておりますので実際の購入、決済は出来ません。お気をつけ下さい。
+ダミーデータを使用してため、実際の購入や決済は出来ませんのでご注意ください。
 
 <hr>
 
@@ -168,13 +168,13 @@
 #### 商品購入時
 
 デモサイトのためダミー情報を入力する必要があります。
-カード情報には、以下の情報を手動で入力してください。
+カード情報には、以下の情報を手動でご入力してください。
 
 | 項目 | 内容 |
 | ------- | ------- |
 | カード番号 | 4242 4242 4242 4242 |
 | 有効期限(有効な将来の日付) | 12/34 |
-| セキュリティーコード(任意の3桁) | 123 |
+| 任意の3桁のセキュリティーコード | 123 |
 
 ##### 参考
 
@@ -182,7 +182,7 @@
 <hr>
 
 ### 流れと機能説明
-一般的なECサイトと同じで
+本アプリケーションは一般的なECサイトと同様に、以下の流れで購入します
 1. ログイン（ゲストで購入可）
 2. 商品を選ぶ
 3. カートに入れる
@@ -257,17 +257,17 @@
 
 #### 4. 購入手続きを行う
 ###### 購入手続きー配送先情報
-カートから「購入する」をクリックすると配送情報ページに移動<br>
+カートページから「購入する」をクリックする、配送先情報の入力ページへ移動します<br>
 <img src="docs/images/shipping.png" width="60%" style="border: 1px solid #000">
 
 ゲストの場合は、配送先を入力する必要があります
 <img src="docs/images/shipping_guest.png" width="60%" style="border: 1px solid #000">
 
-###### 購入手続きー確認
+###### 購入手続き - 確認
 配送先情報から「確認ページへ進む」で確認ページを表示
 <img src="docs/images/payment.png" width="60%" style="border: 1px solid #000">
 
-###### 購入手続きー決済
+###### 購入手続き - 決済
 確認ページから「購入する」をクリックするとStripeの決済ページに移動<br>
 必要な情報を入力します<br>
 このサイトでは上記に記載のダミーデータを入力します
@@ -321,3 +321,32 @@ stirpeの領収書発行ページへのリンクと詳細情報
 
 注文一覧
 <img src="docs/images/admin_orders.png" width="60%" style="border: 1px solid #000">
+
+<hr>
+
+## ソフトウェア設計
+図の画像に関してはそれぞれのリンクから閲覧できます
+
+#### ER図
+※ サブスクリプションに関して実装ではリレーションしておりません  
+
+[ER図](https://github.com/recoursion-backendAdvanced-team6/E-Commerce-backend/tree/staging/ecommerce-app/docs/diagrams/er.md)
+
+#### アクティビティ図
+管理者 - 商品に関するフロー
+[アクティビティ図 - 管理者側](https://github.com/recoursion-backendAdvanced-team6/E-Commerce-backend/tree/staging/ecommerce-app/docs/diagrams/activity_admin.md)
+
+- ユーザー　- 配送を除いた購入手続きまでのフロー
+[アクティビティ図 - ユーザー側](https://github.com/recoursion-backendAdvanced-team6/E-Commerce-backend/tree/staging/ecommerce-app/docs/diagrams/activity_user.md)
+
+
+#### シーケンス図
+Stripeを利用した部分の商品の購入までの流れ
+
+[シーケンス図 - 管理者側](https://github.com/recoursion-backendAdvanced-team6/E-Commerce-backend/tree/staging/ecommerce-app/docs/diagrams/sequence_admin.md)
+
+[シーケンス図 - ユーザー側](https://github.com/recoursion-backendAdvanced-team6/E-Commerce-backend/tree/staging/ecommerce-app/docs/diagrams/sequence_admin.md)
+
+#### 状態遷移図
+購入処理における状態遷移図
+[状態遷移図](https://github.com/recoursion-backendAdvanced-team6/E-Commerce-backend/tree/staging/ecommerce-app/docs/diagrams/state_user.md)
