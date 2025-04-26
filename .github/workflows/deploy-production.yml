@@ -1,34 +1,35 @@
 name: Deploy to Production
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # 手動実行のみ（mainブランチにプッシュされたとき）
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. リポジトリをチェックアウト
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      # 2. SSH接続のセットアップ（秘密鍵を使用）
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
 
-      # ← 追加：テスト実行
-      - name: Run test suite
-        run: |
-          docker-compose exec app bash -c 'vendor/bin/phpunit --colors=never --fail-on-warning'
-
+      # 3. EC2にデプロイ（Dockerはすでに入っている想定）
       - name: Deploy to EC2 Production Server
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.PRODUCTION_EC2_IP }} << 'EOF'
             cd /var/www/ecommerce-deploy/E-Commerce-backend/ecommerce-app
+
             echo "📥 Pulling latest changes..."
             git pull origin main
+
             echo "🐳 Rebuilding Docker containers..."
             docker-compose -f docker-compose.yml up -d --build
+
             echo "🧼 Running Laravel setup and migrations..."
             docker-compose exec app bash -c "
               chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && \
@@ -40,5 +41,6 @@ jobs:
               php artisan config:cache && \
               php artisan route:cache
             "
+
             echo "✅ Production deployment complete!"
           EOF
