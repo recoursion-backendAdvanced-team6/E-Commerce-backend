@@ -9,7 +9,7 @@ https://team6-production-ec.miyukihinata.com/
 ## 概要
 チーム開発やソフトウェア開発を学ぶことを目的とした、ECサイトのデモアプリになります
 
-##　技術スタック 
+## 技術スタック 
 <table>
 <tr>
  <th>カテゴリ</th>
@@ -286,7 +286,7 @@ https://team6-production-ec.miyukihinata.com/
 
 <br>
 
-###### 購入手続き - 決済
+##### 購入手続き - 決済
 確認ページから「購入する」をクリックするとStripeの決済ページに移動<br>
 必要な情報を入力します<br>
 このサイトでは[上記](#dummy)に記載のダミーデータを入力します
@@ -295,13 +295,13 @@ https://team6-production-ec.miyukihinata.com/
 
 <br>
 
-###### 購入手続きー完了
+##### 購入手続きー完了
 カードの決済が完了すると自動的にECサイトに戻ります
 <img src="ecommerce-app/docs/images/payment_comp.png" width="60%" style="border: 1px solid #000">
 
 <hr>
 
-###### ユーザーのマイページ
+#### ユーザーのマイページ
 アカウントを持つユーザーはマイページから各種機能を利用できます
 - お気に入り
 商品のお気に入りをクリックするとお気に入りのリストに追加されます
@@ -310,23 +310,24 @@ https://team6-production-ec.miyukihinata.com/
 - プロフィール
 各種情報を編集できます
 
-マイページ
+マイページ<br>
 <img src="ecommerce-app/docs/images/mypage.png" width="60%" style="border: 1px solid #000">
 
-お気に入り
+お気に入り<br>
 <img src="ecommerce-app/docs/images/mypage_favorite.png" width="60%" style="border: 1px solid #000">
 
-購入履歴
-購入情報と配送情報
+##### 購入履歴
+
+購入情報と配送情報<br>
 <img src="ecommerce-app/docs/images/mypage_history.png" width="60%" style="border: 1px solid #000">
 
-購入履歴詳細
-stirpeの領収書発行ページへのリンクと詳細情報
-<img src="docs/images/mypage_order_item.png" width="60%" style="border: 1px solid #000">
+##### 購入履歴詳細
+stirpeの領収書発行ページへのリンクと詳細情報<br>
+<img src="ecommerce-app/docs/images/mypage_order_item.png" width="60%" style="border: 1px solid #000">
 
 <hr>
 
-###### 管理者画面
+#### 管理者画面
 商品一覧
 「商品の追加」でstripeのダッシュボードへ移動し商品を追加する<br>
 - stripe webhookより商品情報を受け取りDBへ書き込みし、商品情報を取得
@@ -336,12 +337,12 @@ stirpeの領収書発行ページへのリンクと詳細情報
 <img src="ecommerce-app/docs/images/admin_list.png" width="60%" style="border: 1px solid #000">
 <br>
 
-商品詳細
+商品詳細<br>
 <img src="ecommerce-app/docs/images/admin_product_edit.png" width="60%" style="border: 1px solid #000">
 
 <br>
 
-注文一覧
+注文一覧<br>
 <img src="ecommerce-app/docs/images/admin_orders.png" width="60%" style="border: 1px solid #000">
 
 <hr>
