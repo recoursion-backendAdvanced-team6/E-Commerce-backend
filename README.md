@@ -164,7 +164,7 @@
 
 ### 注意事項
 
-#### 商品購入時
+<h4 ><a id='dummy'> 商品購入時</a> </h4> 
 
 デモサイトのためダミー情報を入力する必要があります。
 カード情報には、以下の情報を手動でご入力してください。
@@ -206,22 +206,22 @@
 
 ###### ユーザー側
 <div>
-<img src="docs/images/user_login.png" width="45%" style="border: 1px solid #000">
-<img src="docs/images/user_register.png" width="45%" style="border: 1px solid #000">
+<img src="ecommerce-app/docs/images/user_login.png" width="45%" style="border: 1px solid #000">
+<img src="ecommerce-app/docs/images/user_register.png" width="45%" style="border: 1px solid #000">
 </div>
 <br>
 ログインに成功するとマイページに移動されます
-<img src="docs/images/mypage.png" width="45%" style="border: 1px solid #000">
+<img src="ecommerce-app/docs/images/mypage.png" width="45%" style="border: 1px solid #000">
 
 ###### 管理者側
 <div>
-<img src="docs/images/admin_login.png" width="45%" style="border: 1px solid #000">
+<img src="ecommerce-app/docs/images/admin_login.png" width="45%" style="border: 1px solid #000">
 
-<img src="docs/images/admin_register.png" width="45%" style="border: 1px solid #000">
+<img src="ecommerce-app/docs/images/admin_register.png" width="45%" style="border: 1px solid #000">
 </div>
 <br>
 ログインに成功すると管理者画面に移動されます
-<img src="docs/images/admin_top.png" width="45%" style="border: 1px solid #000">
+<img src="ecommerce-app/docs/images/admin_top.png" width="45%" style="border: 1px solid #000">
 
 <hr>
 
@@ -229,52 +229,69 @@
 
 ###### トップページ 
 トップページでは新刊、人気を表示
-<img src="docs/images/toppage.png" width="60%" style="border: 1px solid #000">
+
+<img src="ecommerce-app/docs/images/toppage.png" width="60%" style="border: 1px solid #000">
 
 ###### 商品一覧 
 
 商品一覧では全ての商品を表示
-<img src="docs/images/toppage_list.png" width="60%" style="border: 1px solid #000">
+
+<img src="ecommerce-app/docs/images/toppage_list.png" width="60%" style="border: 1px solid #000">
 
 ###### 商品詳細
+
 商品をクリックすると商品詳細を表示
-<img src="docs/images/product_detail.png" width="60%" style="border: 1px solid #000">
+
+<img src="ecommerce-app/docs/images/product_detail.png" width="60%" style="border: 1px solid #000">
 
 ###### お気に入り
+
 商品の「お気に入り」をクリックするとマイページのお気に入りに追加
-<img src="docs/images/mypage_favorite.png" width="45%" style="border: 1px solid #000">
-<img src="docs/images/mypage.png" width="45%" style="border: 1px solid #000">
+
+<img src="ecommerce-app/docs/images/mypage_favorite.png" width="45%" style="border: 1px solid #000">
+<img src="ecommerce-app/docs/images/mypage.png" width="45%" style="border: 1px solid #000">
 
 <hr>
 
 #### 3. カートにいれる 
 ###### カート 
-商品を「カートに入れる」を選択するとカートページを表示しカートに追加<br>
-<img src="docs/images/cart.png" width="60%" style="border: 1px solid #000">
+商品を「カートに入れる」を選択するとカートページを表示し、商品をカートに追加<br>
+<img src="ecommerce-app/docs/images/cart.png" width="60%" style="border: 1px solid #000">
 
 <hr>
 
 #### 4. 購入手続きを行う
 ###### 購入手続きー配送先情報
-カートページから「購入する」をクリックする、配送先情報の入力ページへ移動します<br>
-<img src="docs/images/shipping.png" width="60%" style="border: 1px solid #000">
+
+カートページから「購入する」をクリックすると、配送先情報の入力ページへ移動します<br>
+
+<img src="ecommerce-app/docs/images/shipping.png" width="60%" style="border: 1px solid #000">
 
 ゲストの場合は、配送先を入力する必要があります
-<img src="docs/images/shipping_guest.png" width="60%" style="border: 1px solid #000">
+
+<img src="ecommerce-app/docs/images/shipping_guest.png" width="60%" style="border: 1px solid #000">
+
+<br>
 
 ###### 購入手続き - 確認
 配送先情報から「確認ページへ進む」で確認ページを表示
-<img src="docs/images/payment.png" width="60%" style="border: 1px solid #000">
+
+<img src="ecommerce-app/docs/images/payment.png" width="60%" style="border: 1px solid #000">
+
+<br>
 
 ###### 購入手続き - 決済
 確認ページから「購入する」をクリックするとStripeの決済ページに移動<br>
 必要な情報を入力します<br>
-このサイトでは上記に記載のダミーデータを入力します
-<img src="docs/images/stripe_checkout.png" width="60%" style="border: 1px solid #000">
+このサイトでは[上記](#dummy)に記載のダミーデータを入力します
+
+<img src="ecommerce-app/docs/images/stripe_checkout.png" width="60%" style="border: 1px solid #000">
+
+<br>
 
 ###### 購入手続きー完了
 カードの決済が完了すると自動的にECサイトに戻ります
-<img src="docs/images/payment_comp.png" width="60%" style="border: 1px solid #000">
+<img src="ecommerce-app/docs/images/payment_comp.png" width="60%" style="border: 1px solid #000">
 
 <hr>
 
@@ -288,14 +305,14 @@
 各種情報を編集できます
 
 マイページ
-<img src="docs/images/mypage.png" width="60%" style="border: 1px solid #000">
+<img src="ecommerce-app/docs/images/mypage.png" width="60%" style="border: 1px solid #000">
 
 お気に入り
-<img src="docs/images/mypage_favorite.png" width="60%" style="border: 1px solid #000">
+<img src="ecommerce-app/docs/images/mypage_favorite.png" width="60%" style="border: 1px solid #000">
 
 購入履歴
 購入情報と配送情報
-<img src="docs/images/mypage_history.png" width="60%" style="border: 1px solid #000">
+<img src="ecommerce-app/docs/images/mypage_history.png" width="60%" style="border: 1px solid #000">
 
 購入履歴詳細
 stirpeの領収書発行ページへのリンクと詳細情報
@@ -310,16 +327,16 @@ stirpeの領収書発行ページへのリンクと詳細情報
 - 編集から商品情報の編集ページに移動
 - 削除により商品を削除
 
-<img src="docs/images/admin_list.png" width="60%" style="border: 1px solid #000">
+<img src="ecommerce-app/docs/images/admin_list.png" width="60%" style="border: 1px solid #000">
 <br>
 
 商品詳細
-<img src="docs/images/admin_product_edit.png" width="60%" style="border: 1px solid #000">
+<img src="ecommerce-app/docs/images/admin_product_edit.png" width="60%" style="border: 1px solid #000">
 
 <br>
 
 注文一覧
-<img src="docs/images/admin_orders.png" width="60%" style="border: 1px solid #000">
+<img src="ecommerce-app/docs/images/admin_orders.png" width="60%" style="border: 1px solid #000">
 
 <hr>
 
