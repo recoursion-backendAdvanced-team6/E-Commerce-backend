@@ -349,10 +349,10 @@ stirpeの領収書発行ページへのリンクと詳細情報
 [ER図](https://github.com/recoursion-backendAdvanced-team6/E-Commerce-backend/tree/staging/ecommerce-app/docs/diagrams/er.md)
 
 #### アクティビティ図
-管理者 - 商品に関するフロー
+管理者 - 商品に関するフロー  
 [アクティビティ図 - 管理者側](https://github.com/recoursion-backendAdvanced-team6/E-Commerce-backend/tree/staging/ecommerce-app/docs/diagrams/activity_admin.md)
 
-- ユーザー　- 配送を除いた購入手続きまでのフロー
+ユーザー　- 配送を除いた購入手続きまでのフロー  
 [アクティビティ図 - ユーザー側](https://github.com/recoursion-backendAdvanced-team6/E-Commerce-backend/tree/staging/ecommerce-app/docs/diagrams/activity_user.md)
 
 
@@ -364,5 +364,5 @@ Stripeを利用した部分の商品の購入までの流れ
 [シーケンス図 - ユーザー側](https://github.com/recoursion-backendAdvanced-team6/E-Commerce-backend/tree/staging/ecommerce-app/docs/diagrams/sequence_admin.md)
 
 #### 状態遷移図
-購入処理における状態遷移図
+購入処理における状態遷移図  
 [状態遷移図](https://github.com/recoursion-backendAdvanced-team6/E-Commerce-backend/tree/staging/ecommerce-app/docs/diagrams/state_user.md)
