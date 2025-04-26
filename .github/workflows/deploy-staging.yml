@@ -3,7 +3,7 @@ name: Deploy to Staging
 on:
   push:
     branches:
-      - staging  # staging ブランチにプッシュされたときに実行
+      - staging
 
 jobs:
   deploy:
@@ -17,10 +17,7 @@ jobs:
       # 2. FeatureSimpleTest.php のみを実行
       - name: Run FeatureSimpleTest only
         run: |
-          docker compose exec app bash -lc "
-            cd /var/www/html && \
-            php artisan test --filter=FeatureSimpleTest --no-interaction
-          "
+          docker compose exec app bash -lc 'cd /var/www/html && php artisan test --filter=FeatureSimpleTest --no-interaction'
 
       # 3. SSH接続のセットアップ（秘密鍵を使用）
       - name: Set up SSH
