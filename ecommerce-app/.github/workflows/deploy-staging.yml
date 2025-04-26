@@ -32,13 +32,14 @@ jobs:
             echo "🐳 Building Docker containers..."
             docker-compose -f docker-compose.yml up -d --build
 
-            echo "🧼 Running Laravel setup..."
+            echo "🧼 Running Laravel setup and migrations..."
             docker-compose exec app bash -c "
               chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && \
               chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache && \
               php artisan config:clear && \
               php artisan route:clear && \
               php artisan view:clear && \
+              php artisan migrate --force && \
               php artisan config:cache && \
               php artisan route:cache
             "

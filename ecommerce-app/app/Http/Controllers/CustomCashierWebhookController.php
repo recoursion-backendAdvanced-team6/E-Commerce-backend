@@ -8,21 +8,42 @@ use Illuminate\Support\Facades\Log;
 use Stripe\Stripe;
 use Stripe\Invoice;
 use Stripe\InvoiceItem;
+use Stripe\Webhook;
+use Stripe\Exception\SignatureVerificationException;
 use App\Models\Order;
 
 class CustomCashierWebhookController extends CashierWebhookController
 {
     public function handleWebhook(Request $request)
     {
-        Log::info("Webhook received: " . $request->getContent());
-        
+        $payload = $request->getContent();
+        $sigHeader = $request->header('Stripe-Signature');
+
+        $env = App::environment();
+
+        $event = null;
+
+        if ($env === 'local') {
+            Log::info("[LOCAL] Skipping signature verification");
+            $event = json_decode($payload);
+        } else {
+            $secret = match ($env) {
+                'production' => env('STRIPE_WEBHOOK_SECRET_MAIN_PRODUCTION'),
+                'staging' => env('STRIPE_WEBHOOK_SECRET_MAIN_STAGING'),
+                default => null,
+            };
+
+            try {
+                $event = Webhook::constructEvent($payload, $sigHeader, $secret);
+            } catch (\UnexpectedValueException | SignatureVerificationException $e) {
+                Log::error("Stripe Webhook verification failed", ['error' => $e->getMessage()]);
+                return response('Invalid payload or signature', 400);
+            }
+        }
+
         // Cashier の標準処理を実行する
         $response = parent::handleWebhook($request);
         
-        $payload = $request->getContent();
-        $event = json_decode($payload);
-        Log::info("Decoded event: " . json_encode($event));
-
         // Checkout Session 完了時の処理
         if ($event->type === 'checkout.session.completed') {
             $session = $event->data->object;
@@ -55,18 +76,13 @@ class CustomCashierWebhookController extends CashierWebhookController
 
                     // 請求書の最終化
                     $finalizedInvoice = $invoice->finalizeInvoice();
-                    Log::info("Invoice finalized", [
-                        'finalized_invoice_id' => $finalizedInvoice->id,
-                        'hosted_invoice_url'   => $finalizedInvoice->hosted_invoice_url
-                    ]);
 
-                    // Order に請求書情報を保存し、ステータスも更新
+                    // Order に請求書情報を保存し、ステータスも更新 
                     $order->update([
                         'stripe_invoice_url' => $finalizedInvoice->hosted_invoice_url,
-                        'stripe_invoice_id'  => $finalizedInvoice->id,
-                        'status'             => 'completed',
+                        'stripe_invoice_id' => $finalizedInvoice->id,
+                        'status' => 'completed',
                     ]);
-                    Log::info("Order updated with invoice info", ['order_id' => $order->id]);
                 } catch (\Exception $e) {
                     Log::error("Invoice generation failed for Order #{$order->id}: " . $e->getMessage());
                 }

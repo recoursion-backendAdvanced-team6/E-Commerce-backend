@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Stripe\Exception\SignatureVerificationException;
 
 use Stripe\Stripe;
@@ -19,18 +21,35 @@ class StripeWebhookController extends Controller
 {
     public function handleWebhook(Request $request)
     {
-        $payload    = $request->getContent();
-        $sigHeader  = $request->header('Stripe-Signature');
-        $endpointSecret = config('services.stripe.webhook_secret');
+        $payload = $request->getContent();
+        $sigHeader = $request->header('Stripe-Signature');
+        $env = App::environment();
 
-        try {
-            $event = Webhook::constructEvent($payload, $sigHeader, $endpointSecret);
-        } catch (\UnexpectedValueException $e) {
-            // 無効なペイロードの場合
-            return response('', 400);
-        } catch (SignatureVerificationException $e) {
-            // シグネチャ検証に失敗した場合
-            return response('', 400);
+        $event = null;
+
+        if ($env === 'local') {
+            Log::info('[LOCAL] Skipping signature verification');
+            $secret = config('services.stripe.webhook_secret');
+
+            try {
+                $event = Webhook::constructEvent($payload, $sigHeader, $secret);
+            } catch (\UnexpectedValueException | SignatureVerificationException $e) {
+                Log::error("[LOCAL] Stripe Webhook verification failed", ['error' => $e->getMessage()]);
+                return response('Invalid payload or signature', 400);
+            }
+        } else {
+            $secret = match ($env) {
+                'production' => env('STRIPE_WEBHOOK_SECRET_PRODUCT_PRODUCTION'),
+                'staging' => env('STRIPE_WEBHOOK_SECRET_PRODUCT_STAGING'),
+                default => null,
+            };
+
+            try {
+                $event = Webhook::constructEvent($payload, $sigHeader, $secret);
+            } catch (\UnexpectedValueException | SignatureVerificationException $e) {
+                Log::error("Stripe Webhook verification failed", ['error' => $e->getMessage()]);
+                return response('Invalid payload or signature', 400);
+            }
         }
 
 
