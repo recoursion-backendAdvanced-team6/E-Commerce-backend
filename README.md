@@ -303,11 +303,11 @@ https://team6-production-ec.miyukihinata.com/
 
 #### ユーザーのマイページ
 アカウントを持つユーザーはマイページから各種機能を利用できます
-- お気に入り
+- お気に入り  
 商品のお気に入りをクリックするとお気に入りのリストに追加されます
-- 購入履歴
+- 購入履歴  
 過去に購入した商品の履歴と配送状態を確認できます
-- プロフィール
+- プロフィール  
 各種情報を編集できます
 
 マイページ<br>
@@ -366,9 +366,9 @@ stirpeの領収書発行ページへのリンクと詳細情報<br>
 #### シーケンス図
 Stripeを利用した部分の商品の購入までの流れ
 
-[シーケンス図 - 管理者側](https://github.com/recoursion-backendAdvanced-team6/E-Commerce-backend/tree/staging/ecommerce-app/docs/diagrams/sequence_admin.md)
+[シーケンス図 - 管理者側](https://github.com/recoursion-backendAdvanced-team6/E-Commerce-backend/tree/staging/ecommerce-app/docs/diagrams/sequence_stripe_product.md)
 
-[シーケンス図 - ユーザー側](https://github.com/recoursion-backendAdvanced-team6/E-Commerce-backend/tree/staging/ecommerce-app/docs/diagrams/sequence_admin.md)
+[シーケンス図 - ユーザー側](https://github.com/recoursion-backendAdvanced-team6/E-Commerce-backend/tree/staging/ecommerce-app/docs/diagrams/sequence_stripe_checkout.md)
 
 #### 状態遷移図
 購入処理における状態遷移図  
